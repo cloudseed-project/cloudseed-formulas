@@ -6,6 +6,7 @@ base:
   'roles:lamp-basic':
     - match: grain
     - lamp-basic
+    - mysql.server
 
   'roles:git-deploy':
     - match: grain
