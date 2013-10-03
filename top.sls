@@ -6,7 +6,6 @@ base:
   'roles:lamp':
     - match: grain
     - apache
-    - apache.vhost.standard
     - mysql.server
     - php
 
