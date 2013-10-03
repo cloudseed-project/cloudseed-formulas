@@ -1,6 +1,6 @@
 {% from "apache/map.jinja" import apache with context %}
 
-apache:
+foobar:
   pkg:
     - installed
     - name: {{ apache.package }}
@@ -9,4 +9,4 @@ apache:
     - name: {{ apache.service }}
     - enable: True
     - watch:
-      - pkg: apache
+      - pkg: foobar
