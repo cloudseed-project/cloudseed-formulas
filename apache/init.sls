@@ -1,13 +1,12 @@
+{% from "apache/map.jinja" import apache with context %}
+
 apache:
-  pkg.installed:
-  {% if grains['os'] == 'RedHat' %}
-    - name: httpd
+  pkg:
+    - installed
+    - name: {{ apache.package }}
   service:
-  - name: httpd
-  - running
-  {% elif grains['os'] == 'Ubuntu' %}
-    - name: apache2
-  service:
-  - name: apache2
-  - running
-  {% endif %}
+    - running
+    - name: {{ apache.service }}
+    - enable: True
+    - watch:
+      - pkg: apache
