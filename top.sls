@@ -3,10 +3,12 @@ base:
   'master':
     - master
 
-  'roles:lamp-basic':
+  'roles:lamp':
     - match: grain
-    - lamp-basic
+    - apache
+    - apache.vhost.standard
     - mysql.server
+    - php
 
   'roles:git-deploy':
     - match: grain
@@ -14,7 +16,7 @@ base:
 
   'roles:mysql':
     - match: grain
-    - mysql
+    - mysql.server
 
   'roles:postgresql':
     - match: grain
