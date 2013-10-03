@@ -6,8 +6,6 @@ base:
   'roles:lamp':
     - match: grain
     - apache
-    - mysql.server
-    - php
 
   'roles:git-deploy':
     - match: grain
