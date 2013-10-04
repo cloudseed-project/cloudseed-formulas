@@ -1,6 +1,6 @@
-{% if 'apache' in pillar and 'modules' in pillar['apache'] %} 
+{% if 'modules' in pillar['apache'] %} 
 {% for module in pillar['apache']['modules'] %}
-{% if pillar['apache']['modules'][module] == 'enabled' %}
+{% if pillar['apache']['modules'][module] %}
 include:
 {% if grains['os_family']=="Redhat" %}
   - apache.devel
