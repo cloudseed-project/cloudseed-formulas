@@ -10,7 +10,7 @@
         'package': 'httpd',
         'service': 'httpd',
         'modules': {
-            'php': '', # included with yum pkg
+            'php': '',
         },
     },
 }, merge=salt['pillar.get']('apache:lookup')) %}
