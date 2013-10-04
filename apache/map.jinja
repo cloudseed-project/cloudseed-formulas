@@ -2,12 +2,14 @@
     'Debian': {
         'package': 'apache2',
         'service': 'apache2',
-        'mod_php': 'libapache2-mod-php5',
+        'modules': {
+            'php': 'libapache2-mod-php5',
+        },
     },
     'RedHat': {
         'package': 'httpd',
         'service': 'httpd',
-        'mod': {
+        'modules': {
             'php': 'libapache2-mod-php5',
         },
     },
