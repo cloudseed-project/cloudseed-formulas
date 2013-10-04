@@ -2,9 +2,11 @@
     'Debian': {
         'package': 'apache2',
         'service': 'apache2',
+        'mod-php': 'libapache2-mod-php5',
     },
     'RedHat': {
         'package': 'httpd',
         'service': 'httpd',
+        'mod-php': 'libapache2-mod-php5',
     },
 }, merge=salt['pillar.get']('apache:lookup')) %}

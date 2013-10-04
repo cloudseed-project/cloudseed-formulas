@@ -6,6 +6,7 @@ base:
   'roles:lamp':
     - match: grain
     - apache
+    - apache.mod-php
 
   'roles:git-deploy':
     - match: grain
