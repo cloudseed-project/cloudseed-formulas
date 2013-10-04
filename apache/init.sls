@@ -1,5 +1,8 @@
 {% from "apache/map.jinja" import apache with context %}
 
+include:
+  - apache.modules
+
 apache:
   pkg:
     - installed
@@ -10,3 +13,4 @@ apache:
     - enable: True
     - watch:
       - pkg: apache
+
