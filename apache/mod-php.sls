@@ -1,6 +1,3 @@
-{% from "apache/map.jinja" import apache with context %}
-mod-php:
-  pkg.installed:
-    - name: {{ apache.mod.php }}
-    - require:
-      - pkg: apache
+libapache2-mod-php5:
+  pkg:
+    - installed
