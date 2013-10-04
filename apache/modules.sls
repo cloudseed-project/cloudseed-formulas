@@ -7,5 +7,5 @@ include:
 {% endif %}
   - apache.mod-{{module}}
 {% endif %}
-{% enddfor %}
+{% endfor %}
 {% endif %}
