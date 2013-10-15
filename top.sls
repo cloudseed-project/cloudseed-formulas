@@ -5,7 +5,7 @@ base:
 
   'roles:lamp':
     - match: grain
-    - apache
+    - lamp
 
   'roles:git-deploy':
     - match: grain

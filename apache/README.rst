@@ -20,3 +20,26 @@ Supports
 ----------------
 * Ubuntu
 * Redhat (untested)
+
+
+
+## Notes
+
+PHP can be included using a pillar or top files.
+
+Examples:
+
+```
+# State: top.sls
+base:
+  '*':
+    - apache
+    - apache.modules.php
+```
+
+```
+# Pillar: apache.sls
+apache:
+  modules:
+    php
+```
