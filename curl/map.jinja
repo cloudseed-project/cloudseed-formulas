@@ -1,0 +1,8 @@
+{% set curl = salt['grains.filter_by']({
+    'Debian': {
+        'package': 'curl',
+    },
+    'RedHat': {
+        'package': 'curl',
+    },
+}, merge=salt['pillar.get']('curl:lookup')) %}
