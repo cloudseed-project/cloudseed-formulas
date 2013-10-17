@@ -26,3 +26,7 @@ base:
   'roles:vim':
     - match: grain
     - vim
+
+  'roles:redis':
+    - match: grain
+    - redis
