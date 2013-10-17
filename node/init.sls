@@ -1,12 +1,12 @@
 # {% from "php/map.jinja" import php with context %}
 
 include:
-  - build_tools
+  - build-tools
   - curl
 
 node:
   cmd.run:
     - name: ls
     - require:
-      - pkg: build_tools
+      - pkg: build-tools
       - pkg: curl
