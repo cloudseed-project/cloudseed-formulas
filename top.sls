@@ -18,3 +18,11 @@ base:
   'roles:postgresql':
     - match: grain
     - postgresql
+
+  'roles:node':
+    - match: grain
+    - node
+
+  'roles:vim':
+    - match: grain
+    - vim

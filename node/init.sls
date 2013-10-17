@@ -1,4 +1,4 @@
-# {% from "php/map.jinja" import php with context %}
+# the node version needs to be externalized into a pillar
 
 include:
   - build-tools
@@ -6,7 +6,11 @@ include:
 
 node:
   cmd.run:
-    - name: ls
+    - name: curl -L https://raw.github.com/isaacs/nave/master/nave.sh | sudo bash -s -- usemain 0.10.20
+    - unless: test "v0.10.20" = "$(node -v)"
+    - env:
+        PREFIX: /usr/local/lib/node
+        NAVE_JOBS: '1'
     - require:
       - pkg: build-tools
       - pkg: curl
