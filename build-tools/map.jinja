@@ -1,10 +1,10 @@
 {% set build_tools = salt['grains.filter_by']({
     'Debian': {
         'package': 'build-essential',
-        'action': 'pkg'
+        'action': 'installed'
     },
     'RedHat': {
         'package': 'Development Tools',
-        'action': 'pkg.group_install'
+        'action': 'group_install'
     },
 }, merge=salt['pillar.get']('build_tools:lookup')) %}
