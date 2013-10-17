@@ -30,3 +30,12 @@ base:
   'roles:redis':
     - match: grain
     - redis
+
+  'roles:python':
+    - match: grain
+    - python
+
+  'roles:vagrant':
+    - match: grain
+    - vagrant
+
