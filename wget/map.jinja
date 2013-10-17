@@ -1,0 +1,8 @@
+{% set wget = salt['grains.filter_by']({
+    'Debian': {
+        'package': 'wget'
+    },
+    'RedHat': {
+        'package': 'wget'
+    },
+}, merge=salt['pillar.get']('wget:lookup')) %}
