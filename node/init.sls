@@ -12,5 +12,5 @@ node:
         PREFIX: /usr/local/lib/node
         NAVE_JOBS: '1'
     - require:
-      - pkg: build-tools
+      - pkg: build-tools.core
       - pkg: curl

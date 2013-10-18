@@ -1,5 +1,5 @@
 {% from "build-tools/map.jinja" import build_tools with context %}
-build-tools:
+build-tools.core:
   pkg:
     - installed
     - pkgs:
