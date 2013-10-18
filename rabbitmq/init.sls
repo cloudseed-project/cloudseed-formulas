@@ -40,7 +40,7 @@ rabbitmq.env:
 rabbitmq.config:
   file.managed:
     - name: {{ rabbitmq.config }}
-    - source: "{{ pillar.get('rabitmq')['config']|d('salt://rabbitmq/files/rabbitmq.config') }}"
+    - source: "{{ pillar.get('rabitmq')['conf']|d('salt://rabbitmq/files/rabbitmq.config') }}"
     - user: root
     - group: root
     - mode: 644
