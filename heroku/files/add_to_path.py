@@ -3,17 +3,23 @@ from __future__ import print_function
 import os
 import sys
 import re
-import fileinput
 
 PATTERN = re.compile(r'(?P<path>^[^#]*?PATH=([^#]+))(?P<suffix>(?:#.+)?)')
 HEROKU_INSTALL_PATH = '/usr/local/heroku/bin'
 
+ADD_TO_PATH = '''
+# set PATH so it includes heroku bin if it exists
+if [ -d "%(path)s" ] ; then
+    PATH="$PATH:%(path)s"
+fi
+''' % {'path': HEROKU_INSTALL_PATH}
+
 
 def has_path(filename):
     with open(filename, 'r') as f:
-        for line in f:
-            if path_components(line):
-                return filename
+        if ADD_TO_PATH in f.read():
+            return True
+        return False
 
 
 def path_components(line):
@@ -26,13 +32,18 @@ def path_components(line):
 
 
 def get_target(*args):
+    valid_files = []
+
     for each in args:
-        if os.path.isfile(each) and has_path(each):
-            return each
+        if os.path.isfile(each):
+            if has_path(each):
+                return None
+            valid_files.append(each)
+
+    return valid_files[0]
 
 
 def main(path):
-
     paths = ['%s/%s' % (path, x) for x in (
         '.profile',
         '.bashrc',
@@ -43,28 +54,8 @@ def main(path):
     if not target:
         return
 
-    f = fileinput.input(target, inplace=True)
-    #f = open(target, 'r')
-    for line in f:
-
-        parts = path_components(line)
-
-        if not parts:
-            print(line.rstrip())
-            continue
-
-        prefix, suffix = parts
-
-        if prefix.endswith('"'):
-            sentinel = '"'
-            prefix = prefix[:-1]
-        else:
-            sentinel = ''
-
-        print('%s:%s%s %s' % (prefix, HEROKU_INSTALL_PATH, sentinel, suffix))
-
-    f.close()
-
+    with open(target, 'a') as f:
+        f.write(ADD_TO_PATH)
 
 if __name__ == '__main__':
     path = sys.argv[1]
