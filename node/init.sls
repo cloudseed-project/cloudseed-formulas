@@ -13,4 +13,4 @@ node:
         NAVE_JOBS: '1'
     - require:
       - pkg: build-tools.core
-      - pkg: curl
+      - pkg: curl.core

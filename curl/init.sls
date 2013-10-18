@@ -1,5 +1,6 @@
 {% from "curl/map.jinja" import curl with context %}
-curl:
+
+curl.core:
   pkg:
     - installed
     - name: {{ curl.package }}
