@@ -1,15 +1,10 @@
-git:
-  pkg.installed:
-  {% if grains['os'] == 'RedHat' or grains['os'] == 'Fedora' or grains['os'] == 'CentOS'%}
-    - name: git-core
-  {% elif grains['os'] == 'Debian' or grains['os'] == 'Ubuntu'%}
-    - name: git
-  {% endif %}
+include:
+  - git
 
+git-deploy.user:
   user.present:
     - require:
       - group: git
-
     - groups:
       - git
 
@@ -28,7 +23,7 @@ git:
       - group
 
     - require:
-      - pkg: git
+      - pkg: git.core
 
     - watch_in:
       - cmd: git init --bare

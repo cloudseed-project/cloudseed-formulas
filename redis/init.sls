@@ -1,9 +1,11 @@
 {% from "redis/map.jinja" import redis with context %}
 
-redis:
-  pkg:
+redis.core:
+    pkg:
     - installed
     - name: {{ redis.package }}
+
+redis.service:
   service:
     - running
     - name: {{ redis.service }}
@@ -15,7 +17,7 @@ redis:
 redis.conf:
   file.managed:
     - name: {{ redis.config }}
-    - source: {{ pillar.get('redis')['conf']|d('salt://redis/files/redis.conf') }}
+    - source: "{{ pillar.get('redis')['conf']|d('salt://redis/files/redis.conf') }}"
     - user: root
     - group: root
     - mode: 644
