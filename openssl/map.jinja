@@ -1,0 +1,11 @@
+{% set openssl = salt['grains.filter_by']({
+    'Debian': {
+        'package': 'openssl',
+        'dev': 'libssl-dev'
+
+    },
+    'RedHat': {
+        'package': 'openssl',
+        'dev': 'openssl-devel'
+    },
+}, merge=salt['pillar.get']('openssl:lookup')) %}

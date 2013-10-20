@@ -1,9 +1,9 @@
 include:
   - ruby
 
-sass.core:
+ruby.compass:
   gem:
     - installed
-    - name: sass
+    - name: compass
     - require:
       - pkg: ruby.gem

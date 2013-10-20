@@ -5,6 +5,13 @@ python.core:
     - installed
     - name: {{ python.package }}
 
+python.dev:
+  pkg:
+    - installed
+    - name: {{ python.dev }}
+    - require:
+      - pkg: python.core
+
 python.pip:
   pkg:
     - installed
@@ -12,10 +19,3 @@ python.pip:
     - require:
       - pkg: python.core
       - pkg: python.dev
-
-python.dev:
-  pkg:
-    - installed
-    - name: {{ python.dev }}
-    - require:
-      - pkg: python.core

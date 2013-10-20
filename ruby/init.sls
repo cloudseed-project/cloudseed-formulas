@@ -5,13 +5,6 @@ ruby.core:
     - installed
     - name: {{ ruby.package }}
 
-ruby.gem:
-  pkg:
-    - installed
-    - name: {{ ruby.gem }}
-    - require:
-      - pkg: ruby.core
-      - pkg: ruby.dev
 
 ruby.dev:
   pkg:
@@ -19,3 +12,11 @@ ruby.dev:
     - name: {{ ruby.dev }}
     - require:
       - pkg: ruby.core
+
+ruby.gem:
+  pkg:
+    - installed
+    - name: {{ ruby.gem }}
+    - require:
+      - pkg: ruby.core
+      - pkg: ruby.dev

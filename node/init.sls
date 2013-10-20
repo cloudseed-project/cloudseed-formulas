@@ -3,6 +3,7 @@
 include:
   - build-tools
   - curl
+  - openssl
 
 node:
   cmd.run:
@@ -14,3 +15,5 @@ node:
     - require:
       - pkg: build-tools.core
       - pkg: curl.core
+      - pkg: openssl.dev
+

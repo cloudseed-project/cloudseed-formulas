@@ -6,5 +6,4 @@ python.virtualenv:
     - installed
     - name: virtualenv
     - require:
-      - pkg: python-pip
-      - pkg: python
+      - pkg: python.pip
