@@ -1,13 +1,19 @@
-postgresql:
+{% from "postgresql/map.jinja" import postgresql with context %}
+
+postgresql.core:
   pkg:
     - installed
-    - name: postgresql-{{ pillar['postgresql']['version'] }}
+    - pkgs:
+      - {{ postgresql.package_server }}
+      - {{ postgresql.package_client }}
+
+postgresql.service:
   service:
-    - name: postgresql
+    - name: {{ postgresql.service }}
     - running
     - enable: True
     - require:
-      - pkg: postgresql
+      - pkg: postgresql.core
 
 {% for db, value in pillar['postgresql']['databases'].iteritems() %}
 postgresql.user.{{ value.user }}:
@@ -17,7 +23,7 @@ postgresql.user.{{ value.user }}:
     - encrypted: True
     - runas: postgres
     - require:
-      - service: postgresql
+      - service: postgresql.service
 
 postgresql.db.{{ db }}:
   postgres_database.present:
@@ -41,9 +47,9 @@ postgresql.hba:
       - template: jinja
       - mode: 644
       - require:
-          - pkg: postgresql
+          - pkg: postgresql.core
       - watch_in:
-        - service: postgresql
+        - service: postgresql.service
 
 
 postgresql.conf:
@@ -55,6 +61,6 @@ postgresql.conf:
       - template: jinja
       - mode: 644
       - require:
-          - pkg: postgresql
+          - pkg: postgresql.core
       - watch_in:
-        - service: postgresql
+        - service: postgresql.service
