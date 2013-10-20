@@ -3,7 +3,7 @@
 python.core:
   pkg:
     - installed
-    - name: {{ python.python }}
+    - name: {{ python.package }}
 
 python.pip:
   pkg:

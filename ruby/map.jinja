@@ -1,0 +1,12 @@
+{% set ruby = salt['grains.filter_by']({
+    'Debian': {
+        'package': 'ruby',
+        'dev': 'ruby-dev',
+        'gem': 'rubygems',
+    },
+    'RedHat': {
+        'package': 'ruby',
+        'dev': 'ruby-devel',
+        'gem': 'rubygems',
+    }
+}, merge=salt['pillar.get']('ruby:lookup')) %}
