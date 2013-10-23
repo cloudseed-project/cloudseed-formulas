@@ -7,8 +7,6 @@ def postgresql_debian_conf():
     source = 'salt://postgresql/files/postgresql.conf'
     env = 'base'
 
-
-
     sfn, source_sum, _ = __salt__['file.get_managed'](
         name='/etc/postgresql/%s/main/postgresql.conf' % version,
         template=None,

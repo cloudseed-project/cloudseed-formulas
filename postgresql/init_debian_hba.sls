@@ -7,8 +7,6 @@ def postgresql_debian_hba():
     source = 'salt://postgresql/files/pg_hba.conf'
     env = 'base'
 
-
-
     sfn, source_sum, _ = __salt__['file.get_managed'](
         name='/etc/postgresql/%s/main/pg_hba.conf' % version,
         template='jinja',
