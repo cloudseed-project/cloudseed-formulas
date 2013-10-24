@@ -1,7 +1,7 @@
 #!pydsl
 
 
-def postgresql_conf_data_dir(pg_utils):
+def postgresql_conf_socket_dir(pg_utils):
     salt_postgres_version = __salt__['postgres.version']
     salt_makedirs = __salt__['file.makedirs_perms']
     salt_directory_exists = __salt__['file.directory_exists']
@@ -27,12 +27,12 @@ def postgresql_conf_data_dir(pg_utils):
     'comment': '%s exists' % data['data_directory']
     }
 
-    if not salt_directory_exists(data['data_directory']):
+    if not salt_directory_exists(data['unix_socket_directory']):
         salt_makedirs(
-            name=data['data_directory'],
+            name=data['unix_socket_directory'],
             user='postgres',
             group='postgres',
-            mode='755')
+            mode=0755)
 
         ret['changes'] = {'retval': True}
 
@@ -40,8 +40,8 @@ def postgresql_conf_data_dir(pg_utils):
 
 
 def states(pg_utils):
-  state('postgresql.conf.data_dir') \
-      .cmd.call(postgresql_conf_data_dir, pg_utils) \
+  state('postgresql.conf.socket_dir') \
+      .cmd.call(postgresql_conf_socket_dir, pg_utils) \
       .require(pkg='postgresql.core') \
       .watch_in(service='postgresql.service')
 

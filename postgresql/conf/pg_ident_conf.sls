@@ -5,6 +5,7 @@ def postgresql_conf_ident(pg_utils):
     salt_postgres_version = __salt__['postgres.version']
     salt_get_managed =  __salt__['file.get_managed']
     salt_manage_file =  __salt__['file.manage_file']
+    salt_cmd_run =  __salt__['cmd.run']
 
     try:
         configuration_sources = __pillar__['postgresql']['configuration_sources']
@@ -12,6 +13,11 @@ def postgresql_conf_ident(pg_utils):
         configuration_sources = {}
 
     postgres_version = salt_postgres_version()
+    if not postgres_version:
+        postgres_version = salt_cmd_run(
+            "psql --version | sed -E s/[^0-9\.]*//g | tr -d '\n'",
+            shell='/bin/bash')
+
     version = '.'.join(postgres_version.split('.')[0:2])
 
     data = pg_utils.defaults(version)

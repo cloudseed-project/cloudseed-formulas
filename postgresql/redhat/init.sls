@@ -20,6 +20,7 @@
 
 pg_utils, \
 pg_data_dir, \
+pg_socket_dir, \
 pg_postgresql_conf, \
 pg_hba_conf, \
 pg_ctl_conf, \
@@ -27,14 +28,16 @@ pg_ident_conf, \
 pg_sysconfig = include(
   'postgresql.redhat.pg_utils',
   'postgresql.conf.pg_data_dir',
+  'postgresql.conf.pg_socket_dir',
   'postgresql.conf.pg_postgresql_conf',
   'postgresql.conf.pg_hba_conf',
   'postgresql.conf.pg_ctl_conf',
-  'postgresql.conf.pg_ident_conf'
+  'postgresql.conf.pg_ident_conf',
   'postgresql.conf.pg_sysconfig'
 )
 
 pg_data_dir.states(pg_utils)
+pg_socket_dir.states(pg_utils)
 pg_postgresql_conf.states(pg_utils)
 pg_hba_conf.states(pg_utils)
 pg_ctl_conf.states(pg_utils)

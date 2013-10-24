@@ -50,26 +50,29 @@ postgresql:
     # location of the data directory, but not for the location of the
     # configuration files.
 
-    pgdata: <optional>              # Debian: not used
-                                    # RedHat: /var/lib/pgsql/data
+    pgdata: <optional>                # Debian: not used
+                                      # RedHat: /var/lib/pgsql/data
 
-    data_directory: <optional>      # Debian: /var/lib/postgresql/{{ version }}/main
-                                    # RedHat: {{ pgdata }}
+    data_directory: <optional>        # Debian: /var/lib/postgresql/{{ version }}/main
+                                      # RedHat: {{ pgdata }}
 
-    sysconfig_location: <optional>  # Debian: not used
-                                    # Redhat: /etc/sysconfig/pgsql/postgresql
+    unix_socket_directory: <optional> # Debian: /var/run/postgresql
+                                      # RedHat: /var/run/postgresql
 
-    postgresql_location: <optional> # Debian: /etc/postgresql/{{ version }}/main/postgresql.conf
-                                    # Redhat: {{ pgdata }}/postgresql.conf
+    sysconfig_location: <optional>    # Debian: not used
+                                      # Redhat: /etc/sysconfig/pgsql/postgresql
 
-    hba_location: <optional>        # Debian: /etc/postgresql/{{ version }}/main/pg_hba.conf
-                                    # RedHat: {{ pgdata }}/pg_hba.conf
+    postgresql_location: <optional>   # Debian: /etc/postgresql/{{ version }}/main/postgresql.conf
+                                      # Redhat: {{ pgdata }}/postgresql.conf
 
-    ident_location: <optional>      # Debian: /etc/postgresql/{{ version }}/main/pg_ident.conf
-                                    # RedHat: {{ pgdata }}/pg_ident.conf
+    hba_location: <optional>          # Debian: /etc/postgresql/{{ version }}/main/pg_hba.conf
+                                      # RedHat: {{ pgdata }}/pg_hba.conf
 
-    ctl_location: <optional>        # Debian: /etc/postgresql/{{ version }}/main/pg_ctl.conf
-                                    # RedHat: {{ pgdata }}/pg_ctl.conf
+    ident_location: <optional>        # Debian: /etc/postgresql/{{ version }}/main/pg_ident.conf
+                                      # RedHat: {{ pgdata }}/pg_ident.conf
+
+    ctl_location: <optional>          # Debian: /etc/postgresql/{{ version }}/main/pg_ctl.conf
+                                      # RedHat: {{ pgdata }}/pg_ctl.conf
 
   basic_configuration:
     # This section is optional
