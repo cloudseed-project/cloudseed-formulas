@@ -1,8 +1,10 @@
 {% from "postgresql/map.jinja" import postgresql with context %}
 
-{% if grains['os_family'] == 'Debian' %}
 include:
+{% if grains['os_family'] == 'Debian' %}
  - postgresql.debian
+{% elif grains['os_family'] == 'RedHat' %}
+ - postgresql.redhat
 {% endif %}
 
 postgresql.core:
@@ -21,8 +23,3 @@ postgresql.service:
     - enable: True
     - require:
       - pkg: postgresql.core
-
-
-{% if grains['os_family'] == 'RedHat' %}
-{% include 'postgresql/redhat/init.sls' with context %}
-{% endif %}
