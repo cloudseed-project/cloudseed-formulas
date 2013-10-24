@@ -1,7 +1,7 @@
 #!pydsl
 
 
-def postgresql_debian_data_dir(pg_utils):
+def postgresql_conf_data_dir(pg_utils):
     salt_postgres_version = __salt__['postgres.version']
     salt_makedirs = __salt__['file.makedirs']
     salt_directory_exists = __salt__['file.directory_exists']
@@ -34,8 +34,8 @@ def postgresql_debian_data_dir(pg_utils):
 
 
 def states(pg_utils):
-  state('postgresql.debian.data_dir') \
-      .cmd.call(postgresql_debian_data_dir, pg_utils) \
-      .require(pkg='postgresql.core', cmd='postgresql_debian_data_dir') \
+  state('postgresql.conf.data_dir') \
+      .cmd.call(postgresql_conf_data_dir, pg_utils) \
+      .require(pkg='postgresql.core') \
       .watch_in(service='postgresql.service')
 

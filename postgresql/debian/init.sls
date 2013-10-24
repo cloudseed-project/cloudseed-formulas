@@ -24,11 +24,11 @@ pg_hba_conf, \
 pg_ctl_conf, \
 pg_ident_conf = include(
   'postgresql.debian.pg_utils',
-  'postgresql.debian.pg_data_dir',
-  'postgresql.debian.pg_postgresql_conf',
-  'postgresql.debian.pg_hba_conf',
-  'postgresql.debian.pg_ctl_conf',
-  'postgresql.debian.pg_ident_conf'
+  'postgresql.conf.pg_data_dir',
+  'postgresql.conf.pg_postgresql_conf',
+  'postgresql.conf.pg_hba_conf',
+  'postgresql.conf.pg_ctl_conf',
+  'postgresql.conf.pg_ident_conf'
 )
 
 pg_data_dir.states(pg_utils)

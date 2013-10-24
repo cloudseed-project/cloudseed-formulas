@@ -1,31 +1,27 @@
 #!pydsl
 
 
-def postgresql_debian_conf(pg_utils):
+def postgresql_conf_ctl(pg_utils):
     salt_postgres_version = __salt__['postgres.version']
     salt_get_managed =  __salt__['file.get_managed']
     salt_manage_file =  __salt__['file.manage_file']
-    salt_makedirs = __salt__['file.makedirs']
 
     try:
-        pillar = __pillar__['postgresql']
+        configuration_sources = __pillar__['postgresql']['configuration_sources']
     except:
-        pillar = {}
+        configuration_sources = {}
 
-    source = pillar.get('conf', 'salt://postgresql/files/postgresql.conf')
     postgres_version = salt_postgres_version()
     version = '.'.join(postgres_version.split('.')[0:2])
 
     data = pg_utils.defaults(version)
 
-    target = '/etc/postgresql/%s/main/postgresql.conf' % version
+    target = data['ctl_location']
     env = 'base'
 
-    salt_makedirs(
-        path=data['data_directory'],
-        user='postgres',
-        group='postgres',
-        mode='755')
+    source = configuration_sources.get(
+        'pg_ctl',
+        'salt://postgresql/files/pg_ctl.conf')
 
     sfn, source_sum, _ = salt_get_managed(
         name=target,
@@ -37,7 +33,7 @@ def postgresql_debian_conf(pg_utils):
         mode='644',
         env=env,
         context=None,
-        defaults=data)
+        defaults=None)
 
     return salt_manage_file(
         name=target,
@@ -54,7 +50,8 @@ def postgresql_debian_conf(pg_utils):
 
 
 def states(pg_utils):
-  state('postgresql.debian.conf') \
-      .cmd.call(postgresql_debian_conf, pg_utils) \
-      .require(pkg='postgresql.core', cmd='postgresql_debian_data_dir') \
-      .watch_in(service='postgresql.service')
+    state('postgresql.conf.ctl') \
+        .cmd.call(postgresql_conf_ctl, pg_utils) \
+        .require(pkg='postgresql.core',
+                 cmd='postgresql_conf_data_dir') \
+        .watch_in(service='postgresql.service')

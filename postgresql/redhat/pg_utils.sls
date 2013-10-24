@@ -12,21 +12,27 @@ def defaults(version):
     except:
         locations = {}
 
+    pgdata = config.get('pgdata', '/var/lib/pgsql/data'),
+
     result = {
-    'data_directory':      locations.get('data_directory',
-                                         '/var/lib/postgresql/%s/main' % version),
+    'pgdata':              pgdata,
+
+    'data_directory':      locations.get('data_directory', pgdata),
+
+    'sysconfig_location':  locations.get('sysconfig_location',
+                                         '/etc/sysconfig/pgsql/postgresql'),
 
     'postgresql_location': locations.get('postgresql_location',
-                                         '/etc/postgresql/%s/main/postgresql.conf' % version),
+                                         '%s/postgresql.conf' % pgdata),
 
     'hba_location':        locations.get('hba_location',
-                                         '/etc/postgresql/%s/main/pg_hba.conf' % version),
+                                         '%s/pg_hba.conf' % pgdata),
 
     'ident_location':      locations.get('ident_location',
-                                         '/etc/postgresql/%s/main/pg_ident.conf' % version),
+                                         '%s/pg_ident.conf' % pgdata),
 
     'ctl_location':        locations.get('ctl_location',
-                                         '/etc/postgresql/%s/main/pg_ctl.conf' % version),
+                                         '%s/pg_ctl.conf' % pgdata),
 
     'listen_address':      basics.get('listen_address', '*'),
     'port':                basics.get('port', '5432')

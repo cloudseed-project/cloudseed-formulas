@@ -1,25 +1,27 @@
 #!pydsl
 
 
-def postgresql_debian_ctl(pg_utils):
+def postgresql_conf_ident(pg_utils):
     salt_postgres_version = __salt__['postgres.version']
     salt_get_managed =  __salt__['file.get_managed']
     salt_manage_file =  __salt__['file.manage_file']
 
     try:
-        pillar = __pillar__['postgresql']
+        configuration_sources = __pillar__['postgresql']['configuration_sources']
     except:
-        pillar = {}
+        configuration_sources = {}
 
     postgres_version = salt_postgres_version()
     version = '.'.join(postgres_version.split('.')[0:2])
 
     data = pg_utils.defaults(version)
 
-    target = data['ctl_file']
+    target = data['ident_location']
     env = 'base'
 
-    source = pillar.get('pg_ctl', 'salt://postgresql/files/pg_ctl.conf')
+    source = configuration_sources.get(
+        'pg_ident',
+        'salt://postgresql/files/pg_ident.conf')
 
     sfn, source_sum, _ = salt_get_managed(
         name=target,
@@ -48,7 +50,8 @@ def postgresql_debian_ctl(pg_utils):
 
 
 def states(pg_utils):
-    state('postgresql.debian.ctl') \
-        .cmd.call(postgresql_debian_ctl, pg_utils) \
-        .require(pkg='postgresql.core', cmd='postgresql_debian_data_dir') \
+    state('postgresql.conf.ident') \
+        .cmd.call(postgresql_conf_ident, pg_utils) \
+        .require(pkg='postgresql.core',
+                 cmd='postgresql_conf_data_dir') \
         .watch_in(service='postgresql.service')

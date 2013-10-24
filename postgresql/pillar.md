@@ -2,24 +2,29 @@
 
 ```yaml
 postgresql:
-  conf: <optional>      # Path to postgresql.conf Defaults to
-                        # salt://postgresql/files/postgresql.conf
 
-  pg_hba: <optional>    # Path to pg_hba.conf Defaults to
-                        # salt://postgresql/files/pg_hba.conf
+  configuration_sources:
+    # This section is optional
 
-  pg_ctl: <optional>    # Path to pg_ctl.conf Defaults to
-                        # salt://postgresql/files/pg_ctl.conf
+    conf: <optional>      # Path to postgresql.conf Defaults to
+                          # salt://postgresql/files/postgresql.conf
 
-  pg_ident: <optional>  # Path to pg_ident.conf Defaults to
-                        # salt://postgresql/files/pg_ident.conf
+    pg_hba: <optional>    # Path to pg_hba.conf Defaults to
+                          # salt://postgresql/files/pg_hba.conf
 
-  sysconfig: <optional> # On RedHat based systems, the path to what will become
+    pg_ctl: <optional>    # Path to pg_ctl.conf Defaults to
+                          # salt://postgresql/files/pg_ctl.conf
+
+    pg_ident: <optional>  # Path to pg_ident.conf Defaults to
+                          # salt://postgresql/files/pg_ident.conf
+
+    sysconfig: <optional> # On RedHat based systems, the path to what will become
                         # /etc/sysconfig/pgsql/postgresql Defaults to
                         # salt://postgresql/files/postgresql-sysconfig.conf
 
-  basic_configuration:
-    # This section is optional.
+  configuration_locations:
+    # This section is optional
+
     # It defines basic parameters to use when rendering the postgresql.conf
     # file. For advanced configuration, please provide your own postgresql.conf.
     # Note, if you are handing it your own conf file, you can probably ignore
@@ -45,20 +50,29 @@ postgresql:
     # location of the data directory, but not for the location of the
     # configuration files.
 
-    pgdata: <optional>          # Debian: not used
-                                # RedHat: /var/lib/pgsql/data
+    pgdata: <optional>              # Debian: not used
+                                    # RedHat: /var/lib/pgsql/data
 
-    data_directory: <optional>  # Debian: /var/lib/postgresql/{{ version }}/main
-                                # RedHat: {{ pgdata }}
+    data_directory: <optional>      # Debian: /var/lib/postgresql/{{ version }}/main
+                                    # RedHat: {{ pgdata }}
 
-    hba_file: <optional>        # Debian: /etc/postgresql/{{ version }}/main/pg_hba.conf
-                                # RedHat: {{ pgdata }}/pg_hba.conf
+    sysconfig_location: <optional>  # Debian: not used
+                                    # Redhat: /etc/sysconfig/pgsql/postgresql
 
-    ident_file: <optional>      # Debian: /etc/postgresql/{{ version }}/main/pg_ident.conf
-                                # RedHat: {{ pgdata }}/pg_ident.conf
+    postgresql_location: <optional> # Debian: /etc/postgresql/{{ version }}/main/postgresql.conf
+                                    # Redhat: {{ pgdata }}/postgresql.conf
 
-    ctl_file: <optional>        # Debian: /etc/postgresql/{{ version }}/main/pg_ctl.conf
-                                # RedHat: {{ pgdata }}/pg_ctl.conf
+    hba_location: <optional>        # Debian: /etc/postgresql/{{ version }}/main/pg_hba.conf
+                                    # RedHat: {{ pgdata }}/pg_hba.conf
+
+    ident_location: <optional>      # Debian: /etc/postgresql/{{ version }}/main/pg_ident.conf
+                                    # RedHat: {{ pgdata }}/pg_ident.conf
+
+    ctl_location: <optional>        # Debian: /etc/postgresql/{{ version }}/main/pg_ctl.conf
+                                    # RedHat: {{ pgdata }}/pg_ctl.conf
+
+  basic_configuration:
+    # This section is optional
 
     listen_address: <optoinal>  # Defaults to '*'
     port: <optional>            # Defaults to 5432
