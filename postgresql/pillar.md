@@ -83,7 +83,8 @@ postgresql:
 
   # Databases and Users
   databases:
-    # This section is optional (you probably want databases though)
+    # This section is optional
+    # (you probably want databases though)
 
     <db_name_1>:
       user: <username>
@@ -103,7 +104,8 @@ postgresql:
 
   # Host Baseed Authentication Settings
   hba:
-    # This section is optional (you probably want auth setting though)
+    # This section is optional
+    # (you probably want authentication setting though)
 
     - type: <host>
       database: <database_name>
