@@ -1,5 +1,5 @@
 {% from "postgresql/map.jinja" import postgresql with context %}
-{% set databases = pillar.get('postgresql:databases', {}) %}
+{% set databases = salt['pillar.get']('postgresql:databases', {}) %}
 
 include:
 {% if grains['os_family'] == 'Debian' %}

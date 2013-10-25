@@ -21,6 +21,8 @@ def postgresql_conf_hba(env, pg_utils):
     version = '.'.join(postgres_version.split('.')[0:2])
 
     data = pg_utils.defaults(version)
+    context = {}
+    mode = __salt__['config.manage_mode'](644)
 
     target = data['hba_location']
 
@@ -35,9 +37,9 @@ def postgresql_conf_hba(env, pg_utils):
         source_hash='',
         user='postgres',
         group='postgres',
-        mode='644',
+        mode=mode,
         env=env,
-        context=None,
+        context=context,
         defaults=None)
 
     return salt_manage_file(
@@ -48,7 +50,7 @@ def postgresql_conf_hba(env, pg_utils):
         source_sum=source_sum,
         user='postgres',
         group='postgres',
-        mode='644',
+        mode=mode,
         env=env,
         backup='',
         template='jinja')
