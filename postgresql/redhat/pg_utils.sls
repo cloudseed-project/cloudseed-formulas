@@ -37,9 +37,9 @@ def defaults(version):
     'ctl_location':          locations.get('ctl_location',
                                          '%s/pg_ctl.conf' % pgdata),
 
-    'listen_address':      basics.get('listen_address', '*'),
-    'port':                basics.get('port', '5432'),
-    'version':             version,
+    'listen_address':        basics.get('listen_address', '*'),
+    'port':                  basics.get('port', '5432'),
+    'version':               version,
     }
 
     return result
