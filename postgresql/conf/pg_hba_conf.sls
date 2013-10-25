@@ -1,7 +1,7 @@
 #!pydsl
 
 
-def postgresql_conf_hba(pg_utils):
+def postgresql_conf_hba(env, pg_utils):
     salt_postgres_version = __salt__['postgres.version']
     salt_get_managed =  __salt__['file.get_managed']
     salt_manage_file =  __salt__['file.manage_file']
@@ -23,17 +23,16 @@ def postgresql_conf_hba(pg_utils):
     data = pg_utils.defaults(version)
 
     target = data['hba_location']
-    env = 'base'
 
     source = configuration_sources.get(
         'pg_hba',
         'salt://postgresql/files/pg_hba.conf')
 
-    sfn, source_sum, _ = salt_get_managed(
+    sfn, source_sum, comment = salt_get_managed(
         name=target,
         template='jinja',
         source=source,
-        source_hash=None,
+        source_hash='',
         user='postgres',
         group='postgres',
         mode='644',
@@ -57,7 +56,7 @@ def postgresql_conf_hba(pg_utils):
 
 def states(pg_utils):
     state('postgresql.conf.hba') \
-        .cmd.call(postgresql_conf_hba, pg_utils) \
+        .cmd.call(postgresql_conf_hba, __env__, pg_utils) \
         .require(pkg='postgresql.core',
                  cmd='postgresql_conf_data_dir') \
         .watch_in(service='postgresql.service')

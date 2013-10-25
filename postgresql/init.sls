@@ -1,4 +1,5 @@
 {% from "postgresql/map.jinja" import postgresql with context %}
+{% set databases = pillar.get('postgresql:databases', {}) %}
 
 include:
 {% if grains['os_family'] == 'Debian' %}
@@ -23,3 +24,27 @@ postgresql.service:
     - enable: True
     - require:
       - pkg: postgresql.core
+
+
+{% for db, value in databases.iteritems() %}
+postgresql.user.{{ value.user }}:
+  postgres_user.present:
+    - name: {{ value.user }}
+    - password: {{ value.password }}
+    - encrypted: True
+    - runas: postgres
+    - require:
+      - service: postgresql.service
+
+postgresql.db.{{ db }}:
+  postgres_database.present:
+    - name: {{ db }}
+    - encoding: {{ value.encoding | d('UTF8') }}
+    - lc_ctype: {{ value.lc_ctype | d('en_US.UTF8') }}
+    - lc_collate: {{ value.lc_collate | d('en_US.UTF8') }}
+    - template: {{ value.template | d('template0') }}
+    - owner: {{ value.user }}
+    - runas: postgres
+    - require:
+      - postgres_user: postgresql.user.{{ value.user }}
+{% endfor %}

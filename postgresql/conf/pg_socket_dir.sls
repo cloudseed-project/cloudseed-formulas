@@ -1,7 +1,7 @@
 #!pydsl
 
 
-def postgresql_conf_socket_dir(pg_utils):
+def postgresql_conf_socket_dir(env, pg_utils):
     salt_postgres_version = __salt__['postgres.version']
     salt_makedirs = __salt__['file.makedirs_perms']
     salt_directory_exists = __salt__['file.directory_exists']
@@ -41,7 +41,7 @@ def postgresql_conf_socket_dir(pg_utils):
 
 def states(pg_utils):
   state('postgresql.conf.socket_dir') \
-      .cmd.call(postgresql_conf_socket_dir, pg_utils) \
+      .cmd.call(postgresql_conf_socket_dir, __env__, pg_utils) \
       .require(pkg='postgresql.core') \
       .watch_in(service='postgresql.service')
 

@@ -1,7 +1,7 @@
 #!pydsl
 
 
-def postgresql_sysconfig_conf(pg_utils):
+def postgresql_sysconfig_conf(env, pg_utils):
     salt_postgres_version = __salt__['postgres.version']
     salt_get_managed =  __salt__['file.get_managed']
     salt_manage_file =  __salt__['file.manage_file']
@@ -23,7 +23,6 @@ def postgresql_sysconfig_conf(pg_utils):
     data = pg_utils.defaults(version)
 
     target = data['sysconfig_location']
-    env = 'base'
 
     source = configuration_sources.get(
         'sysconfig',
@@ -57,7 +56,7 @@ def postgresql_sysconfig_conf(pg_utils):
 
 def states(pg_utils):
   state('postgresql.sysconfig.conf') \
-      .cmd.call(postgresql_sysconfig_conf, pg_utils) \
+      .cmd.call(postgresql_sysconfig_conf, __env__, pg_utils) \
       .require(pkg='postgresql.core',
                cmd='postgresql_conf_data_dir') \
       .watch_in(service='postgresql.service')

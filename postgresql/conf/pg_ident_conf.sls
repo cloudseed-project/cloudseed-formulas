@@ -1,7 +1,7 @@
 #!pydsl
 
 
-def postgresql_conf_ident(pg_utils):
+def postgresql_conf_ident(env, pg_utils):
     salt_postgres_version = __salt__['postgres.version']
     salt_get_managed =  __salt__['file.get_managed']
     salt_manage_file =  __salt__['file.manage_file']
@@ -23,7 +23,6 @@ def postgresql_conf_ident(pg_utils):
     data = pg_utils.defaults(version)
 
     target = data['ident_location']
-    env = 'base'
 
     source = configuration_sources.get(
         'pg_ident',
@@ -57,7 +56,7 @@ def postgresql_conf_ident(pg_utils):
 
 def states(pg_utils):
     state('postgresql.conf.ident') \
-        .cmd.call(postgresql_conf_ident, pg_utils) \
+        .cmd.call(postgresql_conf_ident, __env__, pg_utils) \
         .require(pkg='postgresql.core',
                  cmd='postgresql_conf_data_dir') \
         .watch_in(service='postgresql.service')
