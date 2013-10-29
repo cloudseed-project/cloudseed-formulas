@@ -55,7 +55,7 @@ def postgresql_conf(env, pg_utils):
 
 
 def states(pg_utils):
-  state('postgresql.conf') \
+    state('postgresql.conf') \
       .cmd.call(postgresql_conf, __env__, pg_utils) \
       .require(pkg='postgresql.core',
                cmd='postgresql_conf_data_dir') \

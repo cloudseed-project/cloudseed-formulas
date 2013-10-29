@@ -40,8 +40,10 @@ def postgresql_conf_socket_dir(env, pg_utils):
 
 
 def states(pg_utils):
-  state('postgresql.conf.socket_dir') \
+    state('postgresql.conf.socket_dir') \
       .cmd.call(postgresql_conf_socket_dir, __env__, pg_utils) \
-      .require(pkg='postgresql.core') \
+      .require(
+        pkg='postgresql.core',
+        service='postgresql.service') \
       .watch_in(service='postgresql.service')
 
