@@ -2,11 +2,13 @@
     'Debian': {
         'package_server': 'postgresql',
         'service': 'postgresql',
-        'data_directory': '/etc/postgresql/current'
+        'data_directory': '/etc/postgresql/current',
+        'package_dev': 'libpq-dev'
     },
     'RedHat': {
         'package_server': 'postgresql-server',
         'package_client': 'postgresql',
-        'service': 'postgresql'
+        'service': 'postgresql',
+        'package_dev': 'postgresql-devel'
     },
 }, merge=salt['pillar.get']('postgresql:lookup')) %}
