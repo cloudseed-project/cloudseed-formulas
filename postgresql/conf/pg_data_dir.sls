@@ -2,22 +2,15 @@
 
 
 def postgresql_conf_data_dir(env, pg_utils):
-    salt_postgres_version = __salt__['postgres.version']
     salt_makedirs = __salt__['file.makedirs_perms']
     salt_directory_exists = __salt__['file.directory_exists']
-    salt_cmd_run =  __salt__['cmd.run']
 
     try:
         pillar = __pillar__['postgresql']
     except:
         pillar = {}
 
-    postgres_version = salt_postgres_version()
-    if not postgres_version:
-        postgres_version = salt_cmd_run(
-            "psql --version | sed -E s/[^0-9\.]*//g | tr -d '\n'",
-            shell='/bin/bash')
-
+    postgres_version = pg_utils.version()
     version = '.'.join(postgres_version.split('.')[0:2])
 
     data = pg_utils.defaults(version)

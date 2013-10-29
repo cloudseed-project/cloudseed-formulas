@@ -1,6 +1,22 @@
 #!pydsl
 
 
+def pg_version():
+    try:
+        version = __salt__['postgres.version']
+    except: KeyError
+        version = cli_postgres_version
+
+    return version()
+
+
+def cli_postgres_version():
+    salt_cmd_run =  __salt__['cmd.run']
+    postgres_version = salt_cmd_run(
+            "psql --version | sed -E s/[^0-9\.]*//g | tr -d '\n'",
+            shell='/bin/bash')
+
+
 def defaults(version):
     try:
         basics = __pillar__['postgresql']['basic_configuration']
