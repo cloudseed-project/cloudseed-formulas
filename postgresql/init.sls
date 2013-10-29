@@ -32,7 +32,7 @@ postgresql.user.{{ value.user }}:
     - name: {{ value.user }}
     - password: {{ value.password }}
     - encrypted: True
-    - runas: postgres
+    - user: postgres
     - require:
       - service: postgresql.service
 
@@ -44,7 +44,7 @@ postgresql.db.{{ db }}:
     - lc_collate: {{ value.lc_collate | d('en_US.UTF8') }}
     - template: {{ value.template | d('template0') }}
     - owner: {{ value.user }}
-    - runas: postgres
+    - user: postgres
     - require:
       - postgres_user: postgresql.user.{{ value.user }}
 {% endfor %}
