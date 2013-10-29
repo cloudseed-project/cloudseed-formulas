@@ -60,5 +60,6 @@ def states(pg_utils):
     state('postgresql.conf.hba') \
         .cmd.call(postgresql_conf_hba, __env__, pg_utils) \
         .require(pkg='postgresql.core',
+                 service='postgresql.service',
                  cmd='postgresql_conf_data_dir') \
         .watch_in(service='postgresql.service')
