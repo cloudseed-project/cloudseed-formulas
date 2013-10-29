@@ -19,6 +19,8 @@ def cli_postgres_version():
             "psql --version | sed -E s/[^0-9\.]*//g | tr -d '\n'",
             shell='/bin/bash')
 
+    return postgres_version
+
 
 def defaults(version):
     try:

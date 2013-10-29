@@ -10,7 +10,7 @@ def postgresql_conf_ident(env, pg_utils):
     except:
         configuration_sources = {}
 
-    postgres_version = pg_utils.version()
+    postgres_version = pg_utils.pg_version()
     version = '.'.join(postgres_version.split('.')[0:2])
 
     data = pg_utils.defaults(version)
