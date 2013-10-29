@@ -80,27 +80,39 @@ postgresql:
     listen_address: <optoinal>  # Defaults to '*'
     port: <optional>            # Defaults to 5432
 
+  groups:
+    <group_name_1>:
+      createdb: <optional> # Default false
+      createuser: <optional> # Default false
+      superuser: <optional> # Default false
+      replication: <optional> # Default false
 
-  # Databases and Users
+  users:
+    <user_name_1>:
+      password: <required>
+      createdb: <optional> # Default false
+      createuser: <optional> # Default false
+      encrypted: <optional> # Default false
+      superuser: <optional> # Default false
+      replication: <optional> # Default false
+      groups: <optional> # defaults to None, should be a comma seprated string
+                         # if specified, should match groups you have
+                         # previously defined above
   databases:
-    # This section is optional
-    # (you probably want databases though)
-
     <db_name_1>:
-      user: <username>
-      password: <password>
+      owner: <required> # should match a username you have defined above
       encoding: <optional> # Default UTF8
       lc_ctype: <optional> # Default en_US.UTF8
       lc_collate: <optional> # Default en_US.UTF8
       template: <optional> # Default template0
 
     <db_name_2>:
-      user: <username>
-      password: <password>
+      owner: <required> # should match a username you have defined above
       encoding: <optional> # Default UTF8
       lc_ctype: <optional> # Default en_US.UTF8
       lc_collate: <optional> # Default en_US.UTF8
       template: <optional> # Default template0
+
 
   # Host Baseed Authentication Settings
   hba:
