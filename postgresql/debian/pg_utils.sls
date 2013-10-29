@@ -4,7 +4,7 @@
 def pg_version():
     try:
         version = __salt__['postgres.version']
-    except: KeyError
+    except KeyError:
         version = cli_postgres_version
 
     return version()
