@@ -36,7 +36,6 @@ def states(pg_utils):
     state('postgresql.conf.data_dir') \
       .cmd.call(postgresql_conf_data_dir, __env__, pg_utils) \
       .require(
-        pkg='postgresql.core',
-        service='postgresql.service') \
+        pkg='postgresql.core') \
       .watch_in(service='postgresql.service')
 

@@ -2,12 +2,15 @@
 
 
 def pg_version():
+    result = None
     try:
         version = __salt__['postgres.version']
     except KeyError:
         version = cli_postgres_version
 
-    return version()
+    result = version()
+
+    return result
 
 
 def cli_postgres_version():

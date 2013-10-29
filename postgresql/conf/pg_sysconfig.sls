@@ -51,6 +51,5 @@ def states(pg_utils):
     state('postgresql.sysconfig.conf') \
       .cmd.call(postgresql_sysconfig_conf, __env__, pg_utils) \
       .require(pkg='postgresql.core',
-               service='postgresql.service',
                cmd='postgresql_conf_data_dir') \
       .watch_in(service='postgresql.service')
