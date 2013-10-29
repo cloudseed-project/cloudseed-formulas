@@ -1,5 +1,5 @@
 {% from "postgresql/map.jinja" import postgresql with context %}
 postgresql.dev:
   pkg:
-    - install
+    - installed
     - name: {{ postgresql.package_dev}}
