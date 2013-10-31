@@ -6,4 +6,4 @@ requirejs.core:
     - installed
     - name: requirejs
     - require:
-      - pkg: node.core
+      - cmd: node.core
