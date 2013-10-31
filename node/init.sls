@@ -5,7 +5,7 @@ include:
   - curl
   - openssl
 
-node:
+node.core:
   cmd.run:
     - name: curl -L https://raw.github.com/isaacs/nave/master/nave.sh | sudo bash -s -- usemain 0.10.20
     - unless: test "v0.10.20" = "$(node -v)"
