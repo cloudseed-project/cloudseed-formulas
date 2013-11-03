@@ -41,7 +41,7 @@ php.apache.fastcgi.fpm.conf:
       - service: php.apache.fastcgi.fpm.service
 
 {% for each in ('fastcgi', 'alias', 'rewrite', 'actions') %}
-php.apache.fastcgi.modules.fastcgi:
+php.apache.fastcgi.modules.{{ each }}:
   cmd.run:
     - name: a2enmod {{ each }}
     - require:
