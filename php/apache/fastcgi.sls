@@ -40,13 +40,16 @@ php.apache.fastcgi.fpm.conf:
     - watch_in:
       - service: php.apache.fastcgi.fpm.service
 
-php.apache.fastcgi.modules:
+{% for each in ('fastcgi', 'alias', 'rewrite', 'actions') %}
+php.apache.fastcgi.modules.fastcgi:
   cmd.run:
-    - name: a2enmod fastcgi alias rewrite actions
+    - name: a2enmod {{ each }}
     - require:
       - pkg: apache.core
     - watch_in:
       - service: apache.service
+    - unless: ls -1 /etc/apache2/mods-enabled/ | grep -e {{ each }}
+{% endfor %}
 
 php.apache.fastcgi.conf:
   file.managed:
