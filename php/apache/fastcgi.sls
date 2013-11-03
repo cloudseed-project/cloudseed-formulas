@@ -5,12 +5,21 @@ include:
   - apache
   - apache.modules.fastcgi
 
-php.apache.fastcgi.fpm:
+php.apache.fastcgi.fpm.core:
   pkg:
     - installed
     - name: php5-fpm
     - require:
       - pkg: apache.modules.fastcgi
+
+
+php.apache.fastcgi.fpm.service:
+  service:
+    - running
+    - name: php5-fpm
+    - enable: True
+    - require:
+      - pkg: php.apache.fastcgi.fpm.core
 
 php.apache.fastcgi.mpm-worker:
   pkg:
@@ -22,6 +31,15 @@ php.apache.fastcgi.mpm-worker:
       - service: apache.service
 
 {% if grains['os_family'] == 'Debian' %}
+php.apache.fastcgi.fpm.conf:
+  file.managed:
+    - name: /etc/php5/fpm/php-fpm.conf
+    - source: salt://php/apache/files/fpm.conf
+    - require:
+      - pkg: php.apache.fastcgi.fpm.core
+    - watch_in:
+      - service: php.apache.fastcgi.fpm.service
+
 php.apache.fastcgi.modules:
   cmd.run:
     - name: a2enmod fastcgi alias rewrite actions
