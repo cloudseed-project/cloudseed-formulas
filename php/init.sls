@@ -1,6 +1,6 @@
 {% from "php/map.jinja" import php with context %}
 
-php:
+php.core:
   pkg:
     - installed
     - name: {{ php.package }}

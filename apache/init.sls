@@ -1,15 +1,14 @@
 {% from "apache/map.jinja" import apache with context %}
 
-apache:
+apache.core:
   pkg:
     - installed
     - name: {{ apache.package }}
-  service:
-    - running
-    - name: {{ apache.service }}
-    - enable: True
-    - watch:
-      - pkg: apache
 
-include:
-  - apache.modules
+apache.service:
+  service:
+  - running
+  - name: {{ apache.service }}
+  - enable: True
+  - require:
+    - pkg: apache.core

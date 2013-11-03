@@ -1,17 +1,14 @@
 {% set php = salt['grains.filter_by']({
     'Debian': {
         'package': 'php5',
-        'service': 'php',
         'config': '/etc/php.ini',
     },
     'RedHat': {
         'package': 'php5',
-        'service': 'php',
         'config': '/etc/php.ini',
     },
     'Gentoo': {
         'package': 'php5',
-        'service': 'php',
         'config': '/etc/php.ini',
     },
 }, merge=salt['pillar.get']('php:lookup')) %}
