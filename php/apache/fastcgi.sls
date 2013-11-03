@@ -24,7 +24,7 @@ php.apache.fastcgi.mpm-worker:
 {% if grains['os_family'] == 'Debian' %}
 php.apache.fastcgi.modules:
   cmd.run:
-    - name: a2enmod fastcgi alias rewrite action
+    - name: a2enmod fastcgi alias rewrite actions
     - require:
       - pkg: apache.core
     - watch_in:
