@@ -67,14 +67,4 @@ php.apache.fastcgi.modules.{{ each }}:
       - service: apache.service
     - unless: ls -1 /etc/apache2/mods-enabled/ | grep -e {{ each }}
 {% endfor %}
-
-# php.apache.fastcgi.conf:
-#   file.managed:
-#     - name: /etc/{{ apache.package }}/conf.d/fastcgi-php.conf
-#     - source: salt://php/apache/files/fastcgi.conf
-#     - user: root
-#     - group: root
-#     - mode: 644
-#     - watch_in:
-#       - service: apache.service
 {% endif %}
