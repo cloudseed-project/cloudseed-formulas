@@ -15,6 +15,3 @@ php.apache.fpm:
         allow_override: <optional> # Defaults to 'None'
         directory_index: <optional> # Defaults to 'index.php'
         server_admin: <optional> # defaults to 'webmaster@localhost'
-
-
-
