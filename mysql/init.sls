@@ -1,11 +1,12 @@
 {% from "mysql/map.jinja" import mysql with context %}
 {% set root_password = salt['pillar.get']('mysql:basic_configuration:root_password', False) %}
-{% set cli_password = "-p'%s'"|format(root_password) if root_password else '' %}
-{% set databases = salt['pillar.get']('mysql:databases', {}) %}
-{% set users = salt['pillar.get']('mysql:users', {}) %}
+{% set databases     = salt['pillar.get']('mysql:databases', {}) %}
+{% set users         = salt['pillar.get']('mysql:users', {}) %}
+{% set grants        = salt['pillar.get']('mysql:grants', []) %}
+{% set port          = salt['pillar.get']('mysql:basic_configuration:port', 3306) %}
+{% set cli_password  = "-p'%s'"|format(root_password) if root_password else '' %}
+{% set username      = 'root' %}
 
-include:
-  - mysql.grants
 
 mysql.core:
   pkg:
@@ -61,4 +62,27 @@ mysql.db.{{ db }}:
     - require:
       - pkg: mysql.core
       - cmd: mysql.root.password
+{% endfor %}
+
+{% for each in grants %}
+mysql.grant.{{ each.user }}.{{ each.host }}:
+  mysql_grants.present:
+    - grant: {{ each.grant }}
+    - database: {{ each.database }}
+    - user: {{ each.user }}
+    - host: '{{ each.host|d('localhost') }}'
+    - grant_option: false
+    - escape: true
+    - revoke_first: false
+    - mysql.host: 'localhost'
+    - mysql.port: {{ port }}
+    - mysql.user: {{ username }}
+    - mysql.pass: {{ root_password }}
+    - mysql.db: 'mysql'
+    - require:
+      - pkg: mysql.core
+      - pkg: mysql.salt.support
+      - cmd: mysql.root.password
+      - cmd: mysql.db.{{ each.database.split('.')[0] }}
+      - cmd: mysql.user.{{ each.user }}.{{ each.host|d('localhost') }}
 {% endfor %}
