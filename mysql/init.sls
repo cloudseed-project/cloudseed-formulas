@@ -23,24 +23,23 @@ mysql.service:
     - require:
       - pkg: mysql.core
 
-
 mysql.root.password:
   cmd.run:
     - name: mysqladmin -uroot password '{{ root_password|d('', True) }}'
     - unless: mysqladmin -uroot {{ cli_password }} status > /dev/null
     - require:
       - pkg: mysql.core
-      - file: mysql.config
 
-{% for each in grants.iteritems() %}
-mysql.grant.{{ each.user }}.{{ each.host }}:
+{% for user, value in users.iteritems() %}
+{% for each in value %}
+mysql.user.{{ user }}.{{ each.host }}:
   cmd.run:
-    - name: mysql -uroot {{ cli_password }} -e "GRANT {{ each.grant|d('ALL PRIVILEGES') }} ON {{ each.database }} TO '{{ each.user }}'@'{{ each.host|d('localhost') }}';"
+    - name: mysql -uroot {{ cli_password }} -e "CREATE USER '{{ user }}'@'{{ each.host|d('localhost') }}' IDENTIFIED BY '{{ each.password|d('') }}';"
+    - unless: mysql -u root {{ cli_password }} -D mysql -N -B -e "SELECT CONCAT(user, '@', host) from user;" | grep {{ user }}@{{ each.host|d('localhost') }}
     - require:
       - pkg: mysql.core
       - cmd: mysql.root.password
-      - cmd: mysql.user.{{ each.user }}.{{ each.host|d('localhost') }}
-      - cmd: mysql.db.{{ each.database.split('.')[0] }}
+{% endfor %}
 {% endfor %}
 
 {% for db, value in databases.iteritems() %}
@@ -53,27 +52,14 @@ mysql.db.{{ db }}:
       - cmd: mysql.root.password
 {% endfor %}
 
-{% for user, value in user.iteritems() %}
-{% for each in value %}
-mysql.user.{{ user }}.{{ each.host }}:
+{% for each in grants.iteritems() %}
+mysql.grant.{{ each.user }}.{{ each.host }}:
   cmd.run:
-    - name: mysql -uroot {{ cli_password }} -e "CREATE USER '{{ user }}'@'{{ each.host }}' IDENTIFIED BY '{{ each.password|default('') }}';"
-    - unless: mysql -u{{ user }} -p'{{ each.password|default('') }}' -e "SELECT 1;"
+    - name: mysql -uroot {{ cli_password }} -e "GRANT {{ each.grant|d('ALL PRIVILEGES') }} ON {{ each.database }} TO '{{ each.user }}'@'{{ each.host|d('localhost') }}';"
     - require:
       - pkg: mysql.core
       - cmd: mysql.root.password
-{% endfor %}
+      - cmd: mysql.user.{{ each.user }}.{{ each.host|d('localhost') }}
+      - cmd: mysql.db.{{ each.database.split('.')[0] }}
 {% endfor %}
 
-# {% if grains['os'] in ['Ubuntu', 'Debian', 'Gentoo'] %}
-# my.cnf:
-#   file.managed:
-#     - name: {{ mysql.config }}
-#     - source: salt://mysql/files/{{ grains['os'] }}-my.cnf
-#     - user: root
-#     - group: root
-#     - mode: 644
-#     - template: jinja
-#     - watch_in:
-#       - service: {{ mysql.service }}
-# {% endif %}
