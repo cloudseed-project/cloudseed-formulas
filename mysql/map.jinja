@@ -3,15 +3,18 @@
         'package_server': 'mysql-server',
         'package_client': 'mysql-client',
         'service': 'mysql',
+        'python': ['python-mysqldb']
     },
     'RedHat': {
         'package_server': 'mysql-server',
         'package_client': 'mysql',
         'service': 'mysqld',
+        'python': ['MySQL-python', 'python26-mysqldb']
     },
     'Gentoo': {
         'server': 'dev-db/mysql',
         'mysql-client': 'dev-db/mysql',
         'service': 'mysql',
+        'python': ['dev-python/mysql-python']
     },
 }, merge=salt['pillar.get']('mysql:lookup')) %}
