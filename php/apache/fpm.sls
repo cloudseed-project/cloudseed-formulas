@@ -31,16 +31,6 @@ php.apache.fastcgi.mpm-worker:
       - pkg: apache.core
     - watch_in:
       - service: apache.service
-{#
-php.apache.fpm.vhost.default:
-  file.managed:
-    - name: /etc/apache2/sites-available/default
-    - source: salt://php/apache/files/fpm.vhost.conf
-    - require:
-      - pkg: php.apache.fpm.core
-    - watch_in:
-      - service: apache.service
-#}
 
 {% if grains['os_family'] == 'Debian' %}
 php.apache.fpm.conf:
@@ -56,7 +46,7 @@ php.apache.fpm.conf:
 php.apache.fpm.pool.{{ pool }}:
   file.managed:
     - name: /etc/php5/fpm/pool.d/{{ pool }}.conf
-    - source: {{ value.conf|d('salt://php/apache/files/fpm.pool.conf')
+    - source: {{ value.conf|d('salt://php/apache/files/fpm.pool.conf') }}
     - template: jinja
     - defaults:
         name: {{ pool }}
@@ -77,28 +67,17 @@ php.apache.fpm.vhost.{{ name }}:
     - template: jinja
     - defaults:
         document_root: {{ value.document_root }}
-        server_admin: {{ value.server_admin:d('webmaster@localhost') }}
+        server_admin: {{ value.server_admin|d('webmaster@localhost') }}
         allow_override: {{ value.allow_override|d('None') }}
         directory_index: {{ value.directory_index|d('index.php') }}
         server_name: {{ name }}
-        listen_address: '{{ pools.get(value.pool, {}).get('listen_address', '127.0.0.1:9000' }}'
+        listen_address: '{{ pools.get(value.pool, {}).get('listen_address', '127.0.0.1:9000') }}'
     - require:
       - pkg: php.apache.fpm.core
       - file: php.apache.fpm.pool.{{ value.pool }}
     - watch_in:
       - service: apache.service
 {% endfor %}
-
-{#
-php.apache.fpm.pool.www:
-  file.managed:
-    - name: /etc/php5/fpm/pool.d/www.conf
-    - source: salt://php/apache/files/fpm.pool.www.conf
-    - require:
-      - pkg: php.apache.fpm.core
-    - watch_in:
-      - service: php.apache.fpm.service
-#}
 
 {% for each in ('fastcgi', 'alias', 'rewrite', 'actions') %}
 php.apache.fastcgi.modules.{{ each }}:
