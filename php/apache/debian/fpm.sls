@@ -41,6 +41,7 @@ php.apache.fpm.vhost.{{ name }}:
     - source: {{ value.conf|d('salt://php/apache/files/fpm.vhost.conf') }}
     - template: jinja
     - defaults:
+        port: {{ value.port|d(80) }}
         document_root: {{ value.document_root }}
         server_admin: {{ value.server_admin|d('webmaster@localhost') }}
         allow_override: {{ value.allow_override|d('None') }}
@@ -50,6 +51,8 @@ php.apache.fpm.vhost.{{ name }}:
     - require:
       - pkg: php.apache.fpm.core
       - file: php.apache.fpm.pool.{{ value.pool }}
+    - watch_in:
+      - service: apache.service
 
 php.apache.fpm.vhost.{{ name }}.enabled:
   file.symlink:

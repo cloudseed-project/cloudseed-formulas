@@ -1,5 +1,10 @@
 {% from "apache/map.jinja" import apache with context %}
 
+include:
+  {% if grains['os_family'] == 'Debian' %}
+  - apache.debian
+  {% endif %}
+
 apache.core:
   pkg:
     - installed

@@ -11,6 +11,7 @@ php.apache.fpm:
       foo.com:
         pool: <required> # Must match a pool name defined above, aka 'www'
         document_root: <required> # must be a valid path /srv/app/store
+        port: <optional> # Defaults to 80
         conf: <optional> # Defaults to salt://php/apache/files/fpm.vhost.conf
         allow_override: <optional> # Defaults to 'None'
         directory_index: <optional> # Defaults to 'index.php'
