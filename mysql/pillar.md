@@ -1,5 +1,5 @@
 mysql:
-  root_password:
+
   configuration_sources:
     # This section is optional
 
@@ -12,26 +12,37 @@ mysql:
     listen_address: <optional>  # Defaults to '*'
     port: <optional>            # Defaults to 3306
 
+  grants:
+    - user: <user_name_1>
+      host: localhost           # Defaults to localhost
+      grant: select,insert,update
+      database: exampledb.*
+
+    - user: <user_name_1>
+      host: %                   # Defaults to localhost
+      grant: all privileges
+      database: exampledb.*
+
   users:
     <user_name_1>:
-      password: <required>
-      hosts:
-        - localhost
-        - %
+      - host: localhost
+        password: 123456
+
+      - host: %
+        password: 123456
 
     <user_name_2>:
-      password: <required>
-      hosts:
-        - localhost
-        - %
+      - host: localhost
+        password: 123456
+
+      - host: %
+        password: 123456
 
   databases:
     <db_name_1>:
-      owner: <required> # should match a username you have defined above
       character_set: <optional> # Default utf8
       collate: <optional> # Default utf8_general_ci
 
     <db_name_2>:
-      owner: <required> # should match a username you have defined above
       character_set: <optional> # Default utf8
       collate: <optional> # Default utf8_general_ci
