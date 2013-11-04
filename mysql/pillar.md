@@ -6,10 +6,18 @@ mysql:
     conf: <optional>      # Path to my.cnf Defaults to
                           # salt://mysql/files/my.cnf
 
+  configuration_locations:
+    # This section is optional
+
+    unix_socket_directory: <optional>  # Debian: /var/run/mysqld
+
+    my_cnf_location: <optional>   # Debian: /etc/mysql/my.cnf
+                                  # Redhat: /etc/mysql/my.cnf
+
   basic_configuration:
     # This section is optional
     root_password: <optional>   # Defaults to ''
-    listen_address: <optional>  # Defaults to '*'
+    listen_address: <optional>  # Defaults to '127.0.0.1'
     port: <optional>            # Defaults to 3306
 
   grants:

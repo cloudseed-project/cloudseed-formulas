@@ -1,9 +1,12 @@
 {% from "mysql/map.jinja" import mysql with context %}
-{% set root_password = salt['pillar.get']('mysql:basic_configuration:root_password', False) %}
-{% set databases     = salt['pillar.get']('mysql:databases', {}) %}
-{% set users         = salt['pillar.get']('mysql:users', {}) %}
-{% set grants        = salt['pillar.get']('mysql:grants', []) %}
-{% set port          = salt['pillar.get']('mysql:basic_configuration:port', 3306) %}
+{% set databases               = salt['pillar.get']('mysql:databases', {}) %}
+{% set users                   = salt['pillar.get']('mysql:users', {}) %}
+{% set grants                  = salt['pillar.get']('mysql:grants', []) %}
+{% set basic_configuration     = salt['pillar.get']('mysql:basic_configuration', {}) %}
+{% set configuration_sources   = salt['pillar.get']('mysql:configuration_sources', {}) %}
+{% set configuration_locations = salt['pillar.get']('mysql:configuration_locations', {}) %}
+{% set port          = basic_configuration.get('port', 3306) %}
+{% set root_password = basic_configuration.get('root_password', False) %}
 {% set cli_password  = "-p'%s'"|format(root_password) if root_password else '' %}
 {% set username      = 'root' %}
 
@@ -41,6 +44,33 @@ mysql.root.password:
     - unless: mysqladmin -uroot {{ cli_password }} status > /dev/null
     - require:
       - pkg: mysql.core
+
+mysql.conf.socket_dir:
+  file.directory:
+    - name: {{ configuration_locations.unix_socket_directory|d('/var/run/mysqld') }}
+    - makedirs: True
+    - user: mysql
+    - group: root
+    - require:
+      - pkg: mysql.core
+
+mysql.conf.my_cnf:
+  file.managed:
+    - name: {{ configuration_locations.my_cnf_location | d('/etc/mysql/my.cnf') }}
+    - source: {{ configuration_sources.conf | d('salt://mysql/files/my.cnf') }}
+    - user: root
+    - group: root
+    - mode: 644
+    - template: jinja
+    - defaults:
+        port: {{ port }}
+        unix_socket_directory: {{ configuration_locations.unix_socket_directory|d('/var/run/mysqld') }}
+        listen_address: {{ basic_configuration.listen_address|d('127.0.0.1') }}
+    - require:
+      - pkg: mysql.core
+      - file: mysql.conf.socket_dir
+    - watch_in:
+      - service: mysql.service
 
 {% for user, value in users.iteritems() %}
 {% for each in value %}
