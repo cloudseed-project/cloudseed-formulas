@@ -65,7 +65,7 @@ php.apache.fpm.vhost.{{ name }}.enabled:
 {% endfor %}
 
 {% for each in ('fastcgi', 'alias', 'rewrite', 'actions') %}
-php.apache.fastcgi.modules.{{ each }}:
+php.apache.modules.{{ each }}:
   cmd.run:
     - name: a2enmod {{ each }}
     - require:
