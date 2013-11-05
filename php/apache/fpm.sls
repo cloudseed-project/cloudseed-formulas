@@ -7,7 +7,6 @@ include:
   - php.apache.debian.fpm
   {% endif %}
 
-
 php.apache.fpm.fastcgi:
   pkg:
     - installed
