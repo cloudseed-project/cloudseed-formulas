@@ -1,3 +1,6 @@
+# Pillar options:
+
+```yaml
 mysql:
 
   configuration_sources:
@@ -54,3 +57,4 @@ mysql:
     <db_name_2>:
       character_set: <optional> # Default utf8
       collate: <optional> # Default utf8_general_ci
+```
