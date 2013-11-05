@@ -6,6 +6,13 @@ php.apache.fpm:
         listen_address: <optional>  # Defaults to 127.0.0.1:9000 can also be path to socket fd, /tmp/foo.sock
         user: <optional> # Defaults to www-data
         group: <optional> # Defaults to www-data
+        ini:
+          <key>:<value>  # PHP ini overrides for this pool.
+                         # The bottom of file php/apache/files/fpm.pool.conf
+                         # for examples
+                         # eg:
+                         # php_flag[display_errors]: on
+                         # php_admin_value[memory_limit]: 32M
 
     vhosts:
       foo.com:
