@@ -66,7 +66,17 @@ php.apache.fpm.vhost.{{ name }}.enabled:
       - service: apache.service
 {% endfor %}
 
-{% for each in ('fastcgi', 'alias', 'rewrite', 'actions') %}
+php.apache.modules.fastcgi:
+  cmd.run:
+    - name: a2enmod fastcgi
+    - require:
+      - pkg: apache.core
+      - pkg: php.apache.fpm.fastcgi
+    - watch_in:
+      - service: apache.service
+    - unless: ls -1 /etc/apache2/mods-enabled/ | grep -e fastcgi
+
+{% for each in ('alias', 'rewrite', 'actions') %}
 php.apache.modules.{{ each }}:
   cmd.run:
     - name: a2enmod {{ each }}
