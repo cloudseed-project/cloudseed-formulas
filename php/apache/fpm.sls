@@ -10,7 +10,7 @@ include:
 php.apache.fpm.fastcgi:
   pkg:
     - installed
-    - name: {{ apache['fastcgi'] }}
+    - name: {{ apache['modules']['fastcgi'] }}
     - require:
       - pkg: apache.core
     - watch_in:
@@ -30,6 +30,7 @@ php.apache.fpm.service:
     - enable: True
     - require:
       - pkg: php.apache.fpm.core
+
 
 php.apache.fpm.mpm-worker:
   pkg:
