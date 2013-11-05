@@ -2,10 +2,20 @@
     'Debian': {
         'package': 'php5',
         'config': '/etc/php.ini',
+        'extensions': {
+            'mysql': 'php5-mysqlnd',
+            'gd': 'php5-gd',
+            'common': 'php5-common'
+        }
     },
     'RedHat': {
         'package': 'php5',
         'config': '/etc/php.ini',
+        'extensions': {
+            'mysql': 'php-mysql',
+            'gd': 'php-gd',
+            'common': 'php-common'
+        }
     },
     'Gentoo': {
         'package': 'php5',
