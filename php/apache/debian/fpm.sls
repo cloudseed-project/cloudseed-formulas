@@ -43,6 +43,7 @@ php.apache.fpm.vhost.{{ name }}:
     - defaults:
         port: {{ value.port|d(80) }}
         document_root: {{ value.document_root }}
+        server_alias: {{ value.server_alias|d(None) }}
         server_admin: {{ value.server_admin|d('webmaster@localhost') }}
         allow_override: {{ value.allow_override|d('None') }}
         directory_index: {{ value.directory_index|d('index.php') }}
