@@ -2,12 +2,14 @@
     'Debian': {
         'package_server': 'mysql-server',
         'package_client': 'mysql-client',
+        'package_dev': 'libmysqlclient-dev',
         'service': 'mysql',
         'python': ['python-mysqldb']
     },
     'RedHat': {
         'package_server': 'mysql-server',
         'package_client': 'mysql',
+        'package_dev': 'mysql-devel',
         'service': 'mysqld',
         'python': ['MySQL-python', 'python26-mysqldb']
     },
