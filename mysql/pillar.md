@@ -30,7 +30,7 @@ mysql:
       database: exampledb.*
 
     - user: <user_name_1>
-      host: %                   # Defaults to localhost
+      host: '%'                 # Defaults to localhost
       grant: all privileges
       database: exampledb.*
 
@@ -39,14 +39,14 @@ mysql:
       - host: localhost
         password: 123456
 
-      - host: %
+      - host: '%'
         password: 123456
 
     <user_name_2>:
       - host: localhost
         password: 123456
 
-      - host: %
+      - host: '%'
         password: 123456
 
   databases:
