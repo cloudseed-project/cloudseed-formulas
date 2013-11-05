@@ -22,6 +22,7 @@ php.apache.fpm.pool.{{ pool }}:
         listen_address: '{{ value.listen_address|d('127.0.0.1:9000') }}'
         user: '{{ value.user|d('www-data') }}'
         group: '{{ value.group|d('www-data') }}'
+        ini: {{ value.ini|d({}) }}
     - require:
       - pkg: php.apache.fpm.core
     - watch_in:
