@@ -1,24 +1,26 @@
 {% set php = salt['grains.filter_by']({
     'Debian': {
         'package': 'php5',
+        'package_cli': 'php5-cli',
         'config': '/etc/php.ini',
         'extensions': {
             'mysql': 'php5-mysqlnd',
             'gd': 'php5-gd',
             'common': 'php5-common',
-            'xml': 'php5-xml',
-            'xmlrpc': 'php5-xmlrpc'
+            'xmlrpc': 'php5-xmlrpc',
+            'mcrypt': 'php5-mcrypt',
         }
     },
     'RedHat': {
         'package': 'php5',
+        'package_cli': 'php-cli',
         'config': '/etc/php.ini',
         'extensions': {
             'mysql': 'php-mysql',
             'gd': 'php-gd',
             'common': 'php-common',
-            'xml': 'php-xml',
-            'xmlrpc': 'php-xmlrpc'
+            'xmlrpc': 'php-xmlrpc',
+            'mcrypt': 'php-mcrypt',
         }
     },
     'Gentoo': {
