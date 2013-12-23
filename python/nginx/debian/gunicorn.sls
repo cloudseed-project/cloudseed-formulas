@@ -5,7 +5,7 @@
 python.nginx.gunicorn.vhost.{{ name }}:
   file.managed:
     - name: /etc/nginx/sites-available/000-{{ name }}
-    - source: {{ value.conf|d('salt://php/apache/files/fpm.vhost.conf') }}
+    - source: {{ value.conf|d('salt://python/nginx/files/gunicorn.vhost.conf') }}
     - template: jinja
     - defaults:
         port: {{ value.port|d(80) }}
