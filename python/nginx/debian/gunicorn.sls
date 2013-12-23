@@ -15,7 +15,7 @@ python.nginx.gunicorn.vhost.{{ name }}:
         proxy_pass: {{value.proxy_pass|d('http://127.0.0.1:8000')}}
         conf: {{value.conf|d('salt://python/nginx/files/gunicorn.vhost.conf')}}
     - require:
-      - pkg: python.nginx.gunicorn.core
+      - pip: python.nginx.gunicorn.core
     - watch_in:
       - service: nginx.service
 
