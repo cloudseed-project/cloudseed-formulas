@@ -1,6 +1,9 @@
 include:
   - python
   - nginx
+  {% if grains['os_family'] == 'Debian' %}
+  - python.nginx.debian.gunicorn
+  {% endif %}
 
 python.nginx.gunicorn.core:
   pip:
