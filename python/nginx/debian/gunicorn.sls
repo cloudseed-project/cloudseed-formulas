@@ -19,7 +19,7 @@ python.nginx.gunicorn.vhost.{{ name }}:
         static_location: {{ value.static_location|d('/static') }}
         static_path: {{ value.static_path|d(False) }}
         default_server: {{ value.default_server|d(False) }}
-
+        cors: {{ value.cors|d(False) }}
         conf: {{ value.conf|d('salt://python/nginx/files/gunicorn.vhost.conf') }}
     - require:
       - pip: python.nginx.gunicorn.core

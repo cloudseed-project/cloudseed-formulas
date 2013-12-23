@@ -32,3 +32,17 @@ python.nginx.gunicorn:
                                     # ** If this option is not defined static_location
                                     # no additional location nginx directive will
                                     # be rendered. **
+                                    #
+        cors:
+            methods:
+                - GET
+                - POST
+                - PUT
+            headers:
+                - Content-Type
+                - Authorization
+                - User-Agent,
+                - Keep-Alive
+                - *
+            credentials: true
+            max_age: 1728000
