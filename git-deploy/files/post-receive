@@ -1,2 +1,0 @@
-#!/bin/sh
-sudo salt-call state.sls {{ salt['pillar.get']('git-deploy:sls', 'git-deploy.copy') }}
