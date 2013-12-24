@@ -33,16 +33,23 @@ python.nginx.gunicorn:
                                     # no additional location nginx directive will
                                     # be rendered. **
                                     #
-        cors:
-            methods:
-                - GET
-                - POST
-                - PUT
-            headers:
-                - Content-Type
-                - Authorization
-                - User-Agent,
-                - Keep-Alive
-                - *
-            credentials: true
-            max_age: 1728000
+                                    #
+        cors:                       # https://developer.mozilla.org/en-US/docs/HTTP/Access_control_CORS
+                                    #
+            origin: <optional>      # Defaults to $http_origin
+                                    # Maps to: Access-Control-Allow-Origin
+            methods: <optional>     #
+                - GET               # Array of HTTP Methods you want to allow
+                - OPTIONS           # GET, POST, PUT, DELETE, OPTIONS, etc...
+                - POST              # Maps to: Access-Control-Allow-Methods
+                                    #
+            headers: <optional>     # Array of Headers to allow
+                - Content-Type      # * must be quoted: '*'
+                - Authorization     # Maps to: Access-Control-Allow-Headers
+                - User-Agent        #
+                - Keep-Alive        #
+                                    #
+            credentials: true       # Maps to: Access-Control-Allow-Credentials
+                                    #
+            max_age: 1728000        # Maps to: Access-Control-Max-Age
+                                    # Defaults to 20 days
