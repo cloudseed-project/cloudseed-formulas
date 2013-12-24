@@ -1,3 +1,4 @@
+```yaml
 python.nginx.gunicorn:
     vhosts:
       foo.com:                      # Server name
@@ -53,3 +54,4 @@ python.nginx.gunicorn:
                                     #
             max_age: 1728000        # Maps to: Access-Control-Max-Age
                                     # Defaults to 20 days
+```
