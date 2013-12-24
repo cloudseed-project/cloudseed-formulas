@@ -6,6 +6,12 @@ git-deploy:
   cwd: <optional>
   user: <optional>
   group: <optional>
+
+git.deploy:
+    - path: <optional> # Defaults to /srv/git/project.git
+      user: <optional>
+      group: <optional>
+
 ```
 
 `cwd`, `user` and `group` mainily apply to the default `git-deploy.copy`
