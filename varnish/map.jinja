@@ -1,0 +1,15 @@
+{% set memcached = salt['grains.filter_by']({
+    'Debian': {
+        'package': 'varnish',
+        'service': 'varnish',
+        'config': '/etc/default/varnish',
+        'vcl': '/etc/varnish/default.vcl',
+        'lib': 'libvarnish-dev',
+    },
+    'RedHat': {
+        'package': 'varnish',
+        'service': 'varnish',
+        'config': '/etc/sysconfig/varnish',
+        'vcl': '/etc/varnish/default.vcl',
+    }
+}, merge=salt['pillar.get']('varnish:lookup')) %}
