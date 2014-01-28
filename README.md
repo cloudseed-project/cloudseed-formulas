@@ -21,7 +21,7 @@ devbot go
 Edit ```./Vagrantfile``` by adding:
 
 ```
-config.vm.synced_folder "../cloudseed-formulas", "/srv/salt-local"
+config.vm.synced_folder "../cloudseed-formulas", "/salt-local"
 ```
 
 Edit ```cloudseed/current/salt/master``` by updating the ```file_roots```
@@ -29,6 +29,6 @@ Edit ```cloudseed/current/salt/master``` by updating the ```file_roots```
 ```
 file_roots:
   base:
-  - /srv/salt-local
+  - /salt-local
   - /srv/salt
 ```
