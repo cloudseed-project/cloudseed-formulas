@@ -1,4 +1,4 @@
-{% set memcached = salt['grains.filter_by']({
+{% set varnish = salt['grains.filter_by']({
     'Debian': {
         'package': 'varnish',
         'service': 'varnish',
