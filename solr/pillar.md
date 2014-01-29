@@ -2,6 +2,8 @@
 
 ```yaml
 solr:
+  version: <optional>       # Defaults to 4.6.1
+
   configuration_sources:
     jetty: <optional>       # Path to jetty.xml Defaults to
                             # salt://solr/files/jetty.xml
