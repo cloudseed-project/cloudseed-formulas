@@ -22,7 +22,7 @@ varnish.service:
 varnish.config:
   file.managed:
     - name: {{ varnish.config }}
-    - source: "{{ pillar.get('varnish')['conf']|d('salt://varnish/files/varnish-'+ grains['os_family']|lower) }}"
+    - source: "{{ 'salt://varnish/files/varnish-'+ grains['os_family']|lower }}"
     - user: root
     - group: root
     - mode: 644
@@ -32,7 +32,7 @@ varnish.config:
 varnish.vcl:
   file.managed:
     - name: {{ varnish.vcl }}
-    - source: "{{ pillar.get('varnish')['conf']|d('salt://varnish/files/default.vcl') }}"
+    - source: "salt://varnish/files/default.vcl"
     - user: root
     - group: root
     - mode: 644
