@@ -32,7 +32,6 @@ php.apache.fpm.service:
     - require:
       - pkg: php.apache.fpm.core
 
-
 php.apache.fpm.mpm-worker:
   pkg:
     - installed
