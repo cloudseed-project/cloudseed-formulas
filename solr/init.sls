@@ -1,6 +1,6 @@
 {% set version = salt['pillar.get']('solr:version', '4.6.1') %}
 {% set version_int = version.split('.')|join|int %}
-{% set prefix = 'apache-' if version_int <= 410 else '' %}
+{% set prefix = 'apache-' if version_int < 410 else '' %}
 {% set filename = '%ssolr-%s'|format(prefix, version) %}
 {% set basic_configuration     = salt['pillar.get']('solr:basic_configuration', {}) %}
 {% set configuration_sources = salt['pillar.get']('solr:configuration_sources', {}) %}
@@ -11,6 +11,31 @@
 include:
   - curl
   - java.openjdk7
+
+{% if grains['os_family'] == 'Debian' %}
+solr.init:
+    file.managed:
+    - name: /etc/init/solr.conf
+    - source: salt://solr/files/upstart.conf
+    - mode: 644
+    - template: jinja
+    - defaults:
+        install_location: {{ install_location }}
+    - watch_in:
+      - service: solr.service
+{% endif %}
+
+solr.service:
+  service:
+    - running
+    - name: solr
+    - enable: True
+    - require:
+      - file: solr.init
+      - cmd: solr.download.install
+    - watch:
+      - file: solr.conf.jetty
+      - file: solr.conf.webdefault
 
 solr.download:
   cmd.run:
@@ -54,7 +79,6 @@ solr.conf.jetty:
     - require:
       - cmd: solr.download.install
 
-
 solr.conf.webdefault:
   file.managed:
     - name: {{ install_location }}/etc/webdefault.xml
@@ -73,4 +97,6 @@ solr.conf.basic_auth.realm.properties:
     - template: jinja
     - require:
       - cmd: solr.download.install
+    - watch_in:
+      - service: solr.service
 {% endif %}
