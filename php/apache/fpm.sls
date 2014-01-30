@@ -1,4 +1,5 @@
 {% from "apache/map.jinja" import apache with context %}
+{% from "php/map.jinja" import php with context %}
 
 include:
   - php
@@ -19,14 +20,14 @@ php.apache.fpm.fastcgi:
 php.apache.fpm.core:
   pkg:
     - installed
-    - name: php5-fpm
+    - name: {{ php['package_fpm'] }}
     - require:
       - pkg: php.apache.fpm.fastcgi
 
 php.apache.fpm.service:
   service:
     - running
-    - name: php5-fpm
+    - name: {{ php['service_fpm'] }}
     - enable: True
     - require:
       - pkg: php.apache.fpm.core
