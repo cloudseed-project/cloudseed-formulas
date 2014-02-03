@@ -1,0 +1,9 @@
+{% set oracle = salt['grains.filter_by']({
+    'Debian': {
+        'package': {
+            'v6': 'oracle-java6-installer',
+            'v7': 'oracle-java7-installer',
+            'v8': 'oracle-java8-installer'
+        },
+    }
+}, merge=salt['pillar.get']('oracle:lookup')) %}
