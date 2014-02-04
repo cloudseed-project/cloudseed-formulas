@@ -1,0 +1,14 @@
+{% set openjdk = salt['grains.filter_by']({
+    'Debian': {
+        'package': {
+            'v6': 'openjdk-6-jre-headless',
+            'v7': 'openjdk-7-jre-headless'
+        },
+    },
+    'RedHat': {
+        'package': {
+            'v6': 'java-1.6.0-openjdk',
+            'v7': 'java-1.7.0-openjdk'
+        },
+    },
+}, merge=salt['pillar.get']('openjdk:lookup')) %}
