@@ -6,6 +6,7 @@
         'package_fpm': 'php5-fpm',
         'service_fpm': 'php5-fpm',
         'config': '/etc/php5/apache2/php.ini',
+        'config_dir': '/etc/php5/fpm/conf.d/',
         'extensions': {
             'mysql': 'php5-mysql',
             'pdo': 'php5-mysql', 
@@ -22,6 +23,8 @@
             'apc': 'php-apc',
             'apc-conf': '/etc/php5/fpm/conf.d/apc.settings.ini',
             'pecl-memcache': 'memcache',
+            'pecl-redis': 'redis',
+            'memcache': 'php5-memcache',
             'pcre': 'libpcre3-dev',
             'zf_profile': '/home/vagrant/.zf.ini',
         }
@@ -30,7 +33,6 @@
         'package': 'php5',
         'package_cli': 'php-cli',
         'package_pear': 'php-pear',
-
         'config': '/etc/php.ini',
         'extensions': {
             'mysql': 'php-mysql',
@@ -48,6 +50,8 @@
             'apc': 'php-apc',
             'apc-conf': '/etc/php5/fpm/conf.d/apc.settings.ini',
             'pecl-memcache': 'memcache',
+            'pecl-redis': 'redis',
+            'memcache': 'php5-memcache',
             'pcre': 'pcre-devel',
             'zf_profile': '/home/vagrant/.zf.ini',
         }
