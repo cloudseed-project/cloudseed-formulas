@@ -5,7 +5,6 @@ ruby.core:
     - installed
     - name: {{ ruby.package }}
 
-
 ruby.dev:
   pkg:
     - installed
@@ -20,3 +19,11 @@ ruby.gem:
     - require:
       - pkg: ruby.core
       - pkg: ruby.dev
+
+ruby.core.set.version:
+  cmd.run:
+    - name: ln -sf /usr/bin/ruby1.9.3 /usr/bin/ruby;
+
+ruby.gem.set.version:
+  cmd.run:
+    - name: ln -sf /usr/bin/gem1.9.3 /usr/bin/gem;
