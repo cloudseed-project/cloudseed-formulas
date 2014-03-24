@@ -11,6 +11,10 @@ base:
     - match: grain
     - git-deploy
 
+  'roles:madjango':
+    - match: grain
+    - madjango
+
   'roles:mysql':
     - match: grain
     - mysql.server
