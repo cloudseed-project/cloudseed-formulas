@@ -3,6 +3,9 @@ base:
   'master':
     - master
 
+  'feature-centos':
+    - madjango
+
   'roles:lamp':
     - match: grain
     - lamp
