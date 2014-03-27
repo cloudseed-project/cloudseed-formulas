@@ -3,9 +3,6 @@ base:
   'master':
     - master
 
-  'feature-centos':
-    - madjango
-
   'roles:lamp':
     - match: grain
     - lamp
@@ -45,9 +42,3 @@ base:
   'roles:vagrant':
     - match: grain
     - vagrant
-
-feature-centos:
-
-  'roles:madjango':
-    - match: grain
-    - madjango
