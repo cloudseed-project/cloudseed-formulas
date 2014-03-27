@@ -42,4 +42,3 @@ base:
   'roles:vagrant':
     - match: grain
     - vagrant
-
