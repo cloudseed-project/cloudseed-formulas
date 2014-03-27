@@ -43,3 +43,8 @@ base:
     - match: grain
     - vagrant
 
+feature-centos:
+
+  'roles:madjango':
+    - match: grain
+    - madjango
