@@ -20,6 +20,9 @@ ruby.gem:
       - pkg: ruby.core
       - pkg: ruby.dev
 
+
+{% if grains['os_family'] == 'Debian' %}
+
 ruby.core.set.version:
   cmd.run:
     - name: ln -sf /usr/bin/ruby1.9.3 /usr/bin/ruby;
@@ -27,3 +30,5 @@ ruby.core.set.version:
 ruby.gem.set.version:
   cmd.run:
     - name: ln -sf /usr/bin/gem1.9.3 /usr/bin/gem;
+
+{% endif %}

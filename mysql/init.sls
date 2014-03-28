@@ -47,16 +47,25 @@ mysql.root.password:
 
 mysql.conf.socket_dir:
   file.directory:
-    - name: {{ configuration_locations.unix_socket_directory|d('/var/run/mysqld') }}
+    - name: {{ mysql.unix_socket_directory }}
     - makedirs: True
     - user: mysql
     - group: root
     - require:
       - pkg: mysql.core
 
+mysql.conf.dir:
+  file.directory:
+    - name: {{ mysql.conf_dir }}
+    - makedirs: True
+    - user: mysql
+    - group: mysql
+    - require:
+      - pkg: mysql.core
+
 mysql.conf.my_cnf:
   file.managed:
-    - name: {{ configuration_locations.my_cnf_location | d('/etc/mysql/my.cnf') }}
+    - name: {{ mysql.my_cnf_location }}
     - source: {{ configuration_sources.conf | d('salt://mysql/files/my.cnf') }}
     - user: root
     - group: root
@@ -64,7 +73,7 @@ mysql.conf.my_cnf:
     - template: jinja
     - defaults:
         port: {{ port }}
-        unix_socket_directory: {{ configuration_locations.unix_socket_directory|d('/var/run/mysqld') }}
+        unix_socket_directory: {{ mysql.unix_socket_directory }}
         listen_address: {{ basic_configuration.listen_address|d('127.0.0.1') }}
     - require:
       - pkg: mysql.core

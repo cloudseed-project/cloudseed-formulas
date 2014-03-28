@@ -17,3 +17,20 @@ node.core:
       - pkg: curl.core
       - pkg: openssl.dev
 
+
+{% if grains['os_family'] == 'RedHat' %}
+
+node.npm.symlink:
+  cmd.run:
+    - name: ln -sf /usr/local/bin/npm /usr/bin/;
+
+node.node.symlink:
+  cmd.run:
+    - name: ln -sf /usr/local/bin/node /usr/bin/;
+
+{% endif %}
+
+
+
+
+ 
