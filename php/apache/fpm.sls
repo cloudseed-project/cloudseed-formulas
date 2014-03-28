@@ -6,7 +6,26 @@ include:
   - apache
   {% if grains['os_family'] == 'Debian' %}
   - php.apache.debian.fpm
+  {% elseif grains['os_family'] == 'RedHat' %}
+  - php.apache.redhat.fpm
   {% endif %}
+
+{% if grains['os_family'] == 'Debian' %}
+php.apache.fpm.mpm-worker:
+  pkg:
+    - installed
+    - name: {{ apache['mpm-worker'] }}
+    - require:
+      - pkg: apache.core
+    - watch_in:
+      - service: apache.service
+{% elseif grains['os_family'] == 'RedHat' %}
+php.apache.fpm.mpm-worker:
+  file.uncomment:
+    - name: /etc/sysconfig/httpd
+    - char: #
+    - regex: httpd.worker
+{% endif %}
 
 php.apache.fpm.fastcgi:
   pkg:
@@ -31,13 +50,3 @@ php.apache.fpm.service:
     - enable: True
     - require:
       - pkg: php.apache.fpm.core
-
-php.apache.fpm.mpm-worker:
-  pkg:
-    - installed
-    - name: {{ apache['mpm-worker'] }}
-    - require:
-      - pkg: apache.core
-    - watch_in:
-      - service: apache.service
-
