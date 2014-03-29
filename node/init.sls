@@ -29,8 +29,3 @@ node.node.symlink:
     - name: ln -sf /usr/local/bin/node /usr/bin/;
 
 {% endif %}
-
-
-
-
- 

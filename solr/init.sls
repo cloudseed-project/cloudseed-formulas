@@ -17,7 +17,7 @@ solr.init:
     file.managed:
     - name: /etc/init/solr.conf
     - source: salt://solr/files/upstart.conf
-    - mode: 644
+    - mode: 755
     - template: jinja
     - defaults:
         install_location: {{ install_location }}
@@ -28,11 +28,11 @@ solr.init:
     file.managed:
     - name: /etc/init.d/solr
     - source: salt://solr/files/solr.sh
-    - mode: 644
+    - mode: 755
     - template: jinja
     - watch_in:
       - service: solr.service
-      
+
 {% endif %}
 
 solr.service:
