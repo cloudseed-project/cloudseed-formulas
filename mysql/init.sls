@@ -30,6 +30,20 @@ mysql.salt.support:
     - require:
       - pkg: mysql.core
 
+mysql.conf.lib_dir:
+  file.directory:
+    - name: /var/lib/mysql
+    - user: mysql
+    - group: mysql
+    - require:
+      - pkg: mysql.core
+
+mysql.setup:
+  cmd.run:
+    - name: mysql_install_db
+    - require:
+      - pkg: mysql.core
+
 mysql.service:
   service:
     - running
