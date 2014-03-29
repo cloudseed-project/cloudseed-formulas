@@ -19,7 +19,7 @@ php.apache.fpm.mpm-worker:
       - pkg: apache.core
     - watch_in:
       - service: apache.service
-{% elseif grains['os_family'] == 'RedHat' %}
+{% elif grains['os_family'] == 'RedHat' %}
 php.apache.fpm.mpm-worker:
   file.uncomment:
     - name: /etc/sysconfig/httpd

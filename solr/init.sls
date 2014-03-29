@@ -23,7 +23,7 @@ solr.init:
         install_location: {{ install_location }}
     - watch_in:
       - service: solr.service
-{% elseif grains['os_family'] == 'RedHat' %}
+{% elif grains['os_family'] == 'RedHat' %}
 solr.init:
     file.managed:
     - name: /etc/init.d/solr
@@ -32,6 +32,7 @@ solr.init:
     - template: jinja
     - watch_in:
       - service: solr.service
+      
 {% endif %}
 
 solr.service:
