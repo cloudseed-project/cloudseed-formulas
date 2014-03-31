@@ -58,4 +58,5 @@ php.apache.fpm.vhost.{{ name }}:
       - file: php.apache.fpm.pool.{{ value.pool }}
     - watch_in:
       - service: apache.service
+{% endfor %}
 
