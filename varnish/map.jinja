@@ -11,5 +11,6 @@
         'service': 'varnish',
         'config': '/etc/sysconfig/varnish',
         'vcl': '/etc/varnish/default.vcl',
+        'lib': 'varnish-libs'
     }
 }, merge=salt['pillar.get']('varnish:lookup')) %}

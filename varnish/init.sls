@@ -3,6 +3,8 @@
 include:
   {% if grains['os_family'] == 'Debian' %}
   - varnish.debian
+  {% elif grains['os_family'] == 'RedHat' %}
+  - varnish.redhat
   {% endif %}
 
 varnish.core:

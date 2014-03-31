@@ -6,7 +6,7 @@ include:
   - apache
   {% if grains['os_family'] == 'Debian' %}
   - php.apache.debian.fpm
-  {% elseif grains['os_family'] == 'RedHat' %}
+  {% elif grains['os_family'] == 'RedHat' %}
   - php.apache.redhat.fpm
   {% endif %}
 

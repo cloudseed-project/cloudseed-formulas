@@ -3,6 +3,8 @@
 include:
   {% if grains['os_family'] == 'Debian' %}
   - apache.debian
+  {% elif grains['os_family'] == 'RedHat' %}
+  - apache.redhat  
   {% endif %}
 
 apache.core:
