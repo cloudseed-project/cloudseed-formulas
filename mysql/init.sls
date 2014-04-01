@@ -116,7 +116,7 @@ mysql.grant.{{ each.user }}.{{ each.host }}.{{ loop.index }}:
     - grant_option: false
     - escape: true
     - revoke_first: false
-    - mysql.host: 'localhost'
+    - mysql.host: '127.0.0.1'
     - mysql.port: {{ port }}
     - mysql.user: {{ username }}
     - mysql.pass: {{ root_password }}
