@@ -57,6 +57,7 @@ php.apache.fpm.vhost.{{ name }}:
         allow_override: {{ value.allow_override|d('None') }}
         directory_index: {{ value.directory_index|d('index.php') }}
         server_name: {{ name }}
+        log_dir: /var/log/httpd/
         listen_address: '{{ pools.get(value.pool, {}).get('listen_address', '127.0.0.1:9000') }}'
     - require:
       - pkg: php.apache.fpm.core
