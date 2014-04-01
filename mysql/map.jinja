@@ -5,7 +5,7 @@
         'package_dev': 'libmysqlclient-dev',
         'service': 'mysql',
         'my_cnf_location': '/etc/mysql/my.cnf',
-        'unix_socket_directory': '/var/run/mysqld',
+        'unix_socket': '/var/run/mysqld/mysqld.sock',
         'conf_dir': '/etc/mysql/conf.d/',
         'python': ['python-mysqldb']
     },
@@ -15,7 +15,7 @@
         'package_dev': 'mysql-devel',
         'service': 'mysqld',
         'my_cnf_location': '/etc/my.cnf',
-        'unix_socket_directory': '/var/run/mysqld',
+        'unix_socket': '/var/lib/mysql/mysql.sock',
         'conf_dir': '/etc/mysql/conf.d/',
         'python': ['MySQL-python']
     },

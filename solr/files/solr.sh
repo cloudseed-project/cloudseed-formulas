@@ -324,7 +324,7 @@ fi
 # Do the action
 ##################################################
 case "$ACTION" in
-  start)
+  start|status)
     echo -n "Starting Jetty: "
 
     if (( NO_START )); then
@@ -380,6 +380,7 @@ case "$ACTION" in
       fi
 
       echo "STARTED Jetty `date`"
+      exit 0
     fi
 
     ;;

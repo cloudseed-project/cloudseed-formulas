@@ -59,15 +59,6 @@ mysql.root.password:
     - require:
       - pkg: mysql.core
 
-mysql.conf.socket_dir:
-  file.directory:
-    - name: {{ mysql.unix_socket_directory }}
-    - makedirs: True
-    - user: mysql
-    - group: root
-    - require:
-      - pkg: mysql.core
-
 mysql.conf.dir:
   file.directory:
     - name: {{ mysql.conf_dir }}
@@ -87,11 +78,9 @@ mysql.conf.my_cnf:
     - template: jinja
     - defaults:
         port: {{ port }}
-        unix_socket_directory: {{ mysql.unix_socket_directory }}
         listen_address: {{ basic_configuration.listen_address|d('127.0.0.1') }}
     - require:
       - pkg: mysql.core
-      - file: mysql.conf.socket_dir
     - watch_in:
       - service: mysql.service
 
@@ -131,6 +120,7 @@ mysql.grant.{{ each.user }}.{{ each.host }}.{{ loop.index }}:
     - mysql.port: {{ port }}
     - mysql.user: {{ username }}
     - mysql.pass: {{ root_password }}
+    - mysql.unix_socket: {{ mysql.unix_socket }}
     - mysql.db: 'mysql'
     - require:
       - pkg: mysql.core
