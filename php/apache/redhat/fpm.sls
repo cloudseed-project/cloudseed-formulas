@@ -7,6 +7,10 @@ php.devel:
   pkg:
     - installed
     - name: php-devel
+    - require:
+      - pkg: php.apache.fpm.core
+    - watch_in:
+      - service: php.apache.fpm.service
 
 php.zts:
   pkg:
