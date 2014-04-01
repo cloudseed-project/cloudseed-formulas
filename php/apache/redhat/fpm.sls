@@ -3,6 +3,11 @@
 {% set pools = fpm.get('pools', {}) %}
 {% set vhosts = fpm.get('vhosts', {}) %}
 
+php.devel:
+  pkg:
+    - installed
+    - name: php-devel
+
 php.apache.fpm.conf:
   file.managed:
     - name: {{ php.fpm_dir }}php-fpm.conf

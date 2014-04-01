@@ -21,10 +21,10 @@ php.apache.fpm.mpm-worker:
       - service: apache.service
 {% elif grains['os_family'] == 'RedHat' %}
 php.apache.fpm.mpm-worker:
-  file.uncomment:
+  file.replace:
     - name: /etc/sysconfig/httpd
-    - char: #
-    - regex: httpd.worker
+    - pattern: '#HTTPD=/usr/sbin/httpd\.worker'
+    - repl: 'HTTPD=/usr/sbin/httpd.worker'
 {% endif %}
 
 php.apache.fpm.fastcgi:
