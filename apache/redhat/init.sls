@@ -1,6 +1,6 @@
 apache.conf.ports:
   file.managed:
-    - name: /etc/httpd/ports.conf
+    - name: /etc/httpd/conf.d/ports.conf
     - source: salt://apache/files/redhat.ports.conf
     - template: jinja
     - defaults:
