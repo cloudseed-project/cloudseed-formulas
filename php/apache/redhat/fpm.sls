@@ -8,6 +8,15 @@ php.devel:
     - installed
     - name: php-devel
 
+php.zts:
+  pkg:
+    - installed
+    - name: php-zts
+    - require:
+      - pkg: php.apache.fpm.core
+    - watch_in:
+      - service: php.apache.fpm.service
+
 php.apache.fpm.conf:
   file.managed:
     - name: {{ php.fpm_dir }}php-fpm.conf
