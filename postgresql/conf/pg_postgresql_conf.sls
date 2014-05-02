@@ -19,7 +19,7 @@ def postgresql_conf(env, pg_utils):
 
     source = configuration_sources.get(
         'conf',
-        'salt://postgresql/files/postgresql.conf')
+        'salt://postgresql/files/postgresql_{0}.conf'.format(version))
 
     sfn, source_sum, _ = salt_get_managed(
         name=target,
