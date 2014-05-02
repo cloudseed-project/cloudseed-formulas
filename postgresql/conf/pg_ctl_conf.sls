@@ -44,7 +44,6 @@ def postgresql_conf_ctl(env, pg_utils):
         group='postgres',
         mode='644',
         saltenv=env,
-        env=env,
         backup='',
         template='jinja')
 
