@@ -32,6 +32,7 @@ def postgresql_conf_hba(env, pg_utils):
         group='postgres',
         mode=mode,
         env=env,
+        saltenv=env,
         context=context,
         defaults=None)
 
@@ -45,6 +46,7 @@ def postgresql_conf_hba(env, pg_utils):
         group='postgres',
         mode=mode,
         env=env,
+        saltenv=env,
         backup='',
         template='jinja')
 
