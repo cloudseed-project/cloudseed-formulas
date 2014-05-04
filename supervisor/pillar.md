@@ -12,7 +12,7 @@ supervisor:
                                          #
       group_name_1:                      # The name of the group must be defined
                                          #
-        conf:                            # Defaults to salt://supervisor/files/group.conf
+        conf: <optional>                 # Defaults to salt://supervisor/files/group.conf
                                          #
         programs: <required>             # If using groups a set of programs
           - foo                          # must be defined that represent this
@@ -37,7 +37,7 @@ supervisor:
                                          # you can choose to include. Please review the link
                                          # above for more options to include.
                                          #
-        conf:                            # Defaults to salt://supervisor/files/program.conf
+        conf: <optional>                 # Defaults to salt://supervisor/files/program.conf
                                          #
         command: <required>              # The command that you would like to run
                                          #
