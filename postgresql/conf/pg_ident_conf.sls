@@ -30,6 +30,7 @@ def postgresql_conf_ident(env, pg_utils):
         group='postgres',
         mode='644',
         env=env,
+        saltenv=env,
         context=None,
         defaults=None)
 
@@ -42,7 +43,7 @@ def postgresql_conf_ident(env, pg_utils):
         user='postgres',
         group='postgres',
         mode='644',
-        env=env,
+        saltenv=env,
         backup='',
         template='jinja')
 

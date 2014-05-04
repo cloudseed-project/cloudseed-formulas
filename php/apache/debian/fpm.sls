@@ -43,6 +43,7 @@ php.apache.fpm.vhost.{{ name }}:
     - template: jinja
     - defaults:
         port: {{ value.port|d(80) }}
+        envs: {{ value.envs|d({}) }}
         document_root: {{ value.document_root }}
         server_alias: {{ value.server_alias|d(None) }}
         server_admin: {{ value.server_admin|d('webmaster@localhost') }}

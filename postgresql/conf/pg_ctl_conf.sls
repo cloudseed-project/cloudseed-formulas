@@ -29,6 +29,7 @@ def postgresql_conf_ctl(env, pg_utils):
         user='postgres',
         group='postgres',
         mode='644',
+        saltenv=env,
         env=env,
         context=None,
         defaults=None)
@@ -42,7 +43,7 @@ def postgresql_conf_ctl(env, pg_utils):
         user='postgres',
         group='postgres',
         mode='644',
-        env=env,
+        saltenv=env,
         backup='',
         template='jinja')
 

@@ -19,7 +19,7 @@ def postgresql_conf(env, pg_utils):
 
     source = configuration_sources.get(
         'conf',
-        'salt://postgresql/files/postgresql.conf')
+        'salt://postgresql/files/postgresql_{0}.conf'.format(version))
 
     sfn, source_sum, _ = salt_get_managed(
         name=target,
@@ -29,6 +29,7 @@ def postgresql_conf(env, pg_utils):
         user='postgres',
         group='postgres',
         mode='644',
+        saltenv=env,
         env=env,
         context=None,
         defaults=data)
@@ -42,7 +43,7 @@ def postgresql_conf(env, pg_utils):
         user='postgres',
         group='postgres',
         mode='644',
-        env=env,
+        saltenv=env,
         backup='',
         template='jinja')
 

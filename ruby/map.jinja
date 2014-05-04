@@ -1,8 +1,8 @@
 {% set ruby = salt['grains.filter_by']({
     'Debian': {
-        'package': 'ruby',
-        'dev': 'ruby-dev',
-        'gem': 'rubygems',
+        'package': 'ruby1.9.3',
+        'dev': 'ruby1.9.3',
+        'gem': 'ruby1.9.3',
     },
     'RedHat': {
         'package': 'ruby',

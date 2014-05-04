@@ -95,7 +95,7 @@ mysql.db.{{ db }}:
 {% endfor %}
 
 {% for each in grants %}
-mysql.grant.{{ each.user }}.{{ each.host }}:
+mysql.grant.{{ each.user }}.{{ each.host }}.{{ loop.index }}:
   mysql_grants.present:
     - grant: {{ each.grant }}
     - database: {{ each.database }}
