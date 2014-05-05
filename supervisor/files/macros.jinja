@@ -16,7 +16,7 @@
             {% do seq.append(process_type(each)) -%}
         {% endfor -%}
 
-        {{ seq|join(',') -}}
+        {{ seq|join(', ') -}}
 
     {% else -%}
         {{ value -}}
