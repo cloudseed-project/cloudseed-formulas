@@ -24,3 +24,7 @@ nginx.conf:
     - user: root
     - group: root
     - mode: 644
+
+nginx.remove.default:
+  file.absent:
+    - name: /etc/nginx/sites-enabled/default
