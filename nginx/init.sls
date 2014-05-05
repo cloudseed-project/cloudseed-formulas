@@ -28,3 +28,5 @@ nginx.conf:
 nginx.remove.default:
   file.absent:
     - name: /etc/nginx/sites-enabled/default
+    - watch_in:
+      - service: nginx.service
