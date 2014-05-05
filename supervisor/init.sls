@@ -1,6 +1,6 @@
 {% from "supervisor/map.jinja" import supervisor with context %}
-{% set groups = salt['pillar.get']('supervisor.groups', {}) %}
-{% set programs = salt['pillar.get']('supervisor.programs', {}) %}
+{% set groups = salt['pillar.get']('supervisor:groups', {}) %}
+{% set programs = salt['pillar.get']('supervisor:programs', {}) %}
 
 supervisor.core:
     pkg:
@@ -18,7 +18,7 @@ supervisor.service:
 {% for name, values in groups.iteritems() %}
 supervisor.group.{{ name }}:
   file.managed:
-  - name: /etc/supervisor/group_{{ name }}.conf
+  - name: //etc/supervisor/conf.d/group_{{ name }}.conf
   - source: {{ values.conf|d('salt://supervisor/files/group.conf') }}
   - template: jinja
   - defaults:
@@ -28,11 +28,10 @@ supervisor.group.{{ name }}:
     - service: supervisor.service
 {% endfor %}
 
-
 {% for name, values in programs.iteritems() %}
 supervisor.program.{{ name }}:
   file.managed:
-  - name: /etc/supervisor/program_{{ name }}.conf
+  - name: /etc/supervisor/conf.d/program_{{ name }}.conf
   - source: {{ values.conf|d('salt://supervisor/files/program.conf') }}
   - template: jinja
   - defaults:

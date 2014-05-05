@@ -1,15 +1,15 @@
 {% macro process_type(value) -%}
     {% if value is mapping -%}
         {% for k, v in value.iteritems() -%}
-            {{ k }}={{ v -}}
-        {% endfor -%}
+            {{ k }}="{{ v }}"
+        {%- endfor -%}
     {% else -%}
         {{ value -}}
     {% endif -%}
 {%- endmacro -%}
 
 {% macro process_value(value) -%}
-    {% if value is sequence -%}
+    {% if value is sequence and value is not string -%}
         {% set seq = [] -%}
 
         {% for each in value -%}
