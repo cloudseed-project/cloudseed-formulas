@@ -3,6 +3,20 @@
 
 {% for name, value in vhosts.iteritems() %}
 {% set aliases = value.server_alias|d([]) %}
+{% set app_name = value.app_name|d(name.split('.')[0]) %}
+
+python.nginx.gunicorn.upstream.conf:
+  file.managed:
+    - name: /etc/nginx/conf.d/{{ app_name }}.conf
+    - source: salt://python/nginx/files/nginx.upstream.conf
+    - template: jinja
+    - defaults:
+        app_name: {{ app_name }}
+    - watch_in:
+      - service: nginx.service
+    - require:
+      - pkg: nginx.core
+
 
 python.nginx.gunicorn.vhost.{{ name }}:
   file.managed:
@@ -12,6 +26,7 @@ python.nginx.gunicorn.vhost.{{ name }}:
     - defaults:
         port: {{ value.port|d(80) }}
         server_name: {{ name }}
+        app_name: {{ app_name }}
         server_alias: {{ aliases|join(' ') }}
         access_log: {{ value.access_log|d('/var/log/nginx/%s.log'|format(name)) }}
         location: {{ value.location|d('/')}}
@@ -23,6 +38,7 @@ python.nginx.gunicorn.vhost.{{ name }}:
         conf: {{ value.conf|d('salt://python/nginx/files/gunicorn.vhost.conf') }}
     - require:
       - pip: python.nginx.gunicorn.core
+      - pkg: nginx.core
     - watch_in:
       - service: nginx.service
 
@@ -32,6 +48,17 @@ python.nginx.gunicorn.vhost.{{ name }}.enabled:
     - target: /etc/nginx/sites-available/000-{{ name }}
     - require:
       - file: python.nginx.gunicorn.vhost.{{ name }}
+      - pkg: nginx.core
     - watch_in:
       - service: nginx.service
 {% endfor %}
+
+python.nginx.gunicorn.conf:
+  file.managed:
+    - name: /etc/nginx/nginx.conf
+    - source: salt://python/nginx/files/nginx.conf
+    - require:
+      - pkg: nginx.core
+    - watch_in:
+      - service: nginx.service
+

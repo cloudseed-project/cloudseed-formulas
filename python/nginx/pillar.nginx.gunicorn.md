@@ -1,9 +1,11 @@
 ```yaml
 python.nginx.gunicorn:
     vhosts:
-      foo.com:                      # Server name
+      foo.com:                      # Server name (aka name_key)
                                     #
         server_alias: <optional>    # YAML Array of alias names, aka:
+        app_name:     <optional>    # Defaults to name_key(aka foo.com).split('.')[0]
+                                    #
                                     # - www.example.com
                                     # - *.example.com
                                     # - foo.*
