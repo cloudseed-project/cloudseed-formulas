@@ -1,7 +1,7 @@
 #!pydsl
 
 
-def postgresql_conf_ident(env, pg_utils):
+def postgresql_conf_ident(saltenv, pg_utils):
     salt_get_managed =  __salt__['file.get_managed']
     salt_manage_file =  __salt__['file.manage_file']
 
@@ -28,9 +28,8 @@ def postgresql_conf_ident(env, pg_utils):
         source_hash=None,
         user='postgres',
         group='postgres',
-        mode='644',
-        env=env,
-        saltenv=env,
+        mode='700',
+        saltenv=saltenv,
         context=None,
         defaults=None)
 
@@ -42,10 +41,11 @@ def postgresql_conf_ident(env, pg_utils):
         source_sum=source_sum,
         user='postgres',
         group='postgres',
-        mode='644',
+        mode='700',
         saltenv=env,
         backup='',
-        template='jinja')
+        template='jinja',
+        makedirs=True)
 
 
 def states(pg_utils):

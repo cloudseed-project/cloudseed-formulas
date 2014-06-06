@@ -1,7 +1,7 @@
 #!pydsl
 
 
-def postgresql_conf_hba(env, pg_utils):
+def postgresql_conf_hba(saltenv, pg_utils):
     salt_get_managed =  __salt__['file.get_managed']
     salt_manage_file =  __salt__['file.manage_file']
 
@@ -15,7 +15,7 @@ def postgresql_conf_hba(env, pg_utils):
 
     data = pg_utils.defaults(version)
     context = {}
-    mode = __salt__['config.manage_mode'](644)
+    mode = __salt__['config.manage_mode'](700)
 
     target = data['hba_location']
 
@@ -31,8 +31,7 @@ def postgresql_conf_hba(env, pg_utils):
         user='postgres',
         group='postgres',
         mode=mode,
-        env=env,
-        saltenv=env,
+        saltenv=saltenv,
         context=context,
         defaults=None)
 
@@ -45,9 +44,10 @@ def postgresql_conf_hba(env, pg_utils):
         user='postgres',
         group='postgres',
         mode=mode,
-        saltenv=env,
+        saltenv=saltenv,
         backup='',
-        template='jinja')
+        template='jinja',
+        makedirs=True)
 
 
 def states(pg_utils):
