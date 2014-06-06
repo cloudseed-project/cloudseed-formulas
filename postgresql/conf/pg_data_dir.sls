@@ -25,7 +25,7 @@ def postgresql_conf_data_dir(env, pg_utils):
             name=data['data_directory'],
             user='postgres',
             group='postgres',
-            mode='755')
+            mode='700')
 
         ret['changes'] = {'retval': True}
 
