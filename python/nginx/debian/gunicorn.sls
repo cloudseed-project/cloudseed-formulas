@@ -1,6 +1,6 @@
 {% set gunicorn = salt['pillar.get']('python.nginx.gunicorn', {}) %}
 {% set vhosts = gunicorn.get('vhosts', {}) %}
-{% set nginx = gunicorn.get('vhosts', {}) %}
+{% set nginx = gunicorn.get('nginx', {}) %}
 
 {% for name, value in vhosts.iteritems() %}
 {% set aliases = value.server_alias|d([]) %}
