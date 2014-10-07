@@ -56,4 +56,6 @@ python.nginx.gunicorn:
                                     #
             max_age: 1728000        # Maps to: Access-Control-Max-Age
                                     # Defaults to 20 days
+    nginx:
+        sendfile: <optional>        # Defaults to on
 ```

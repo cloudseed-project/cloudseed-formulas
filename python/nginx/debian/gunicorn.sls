@@ -60,7 +60,7 @@ python.nginx.gunicorn.conf:
     - source: salt://python/nginx/files/nginx.conf
     - template: jinja
     - defaults:
-        sendfile: {{ nginx.sendfile|d('on') }}
+        sendfile: {{ nginx.sendfile|d('"on"') }}
     - require:
       - pkg: nginx.core
     - watch_in:
