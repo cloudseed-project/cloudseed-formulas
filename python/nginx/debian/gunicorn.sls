@@ -58,6 +58,7 @@ python.nginx.gunicorn.conf:
   file.managed:
     - name: /etc/nginx/nginx.conf
     - source: salt://python/nginx/files/nginx.conf
+    - template: jinja
     - defaults:
         sendfile: {{ nginx.sendfile|d('on') }}
     - require:
