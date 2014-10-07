@@ -1,5 +1,6 @@
 {% set gunicorn = salt['pillar.get']('python.nginx.gunicorn', {}) %}
 {% set vhosts = gunicorn.get('vhosts', {}) %}
+{% set nginx = gunicorn.get('vhosts', {}) %}
 
 {% for name, value in vhosts.iteritems() %}
 {% set aliases = value.server_alias|d([]) %}
@@ -57,6 +58,8 @@ python.nginx.gunicorn.conf:
   file.managed:
     - name: /etc/nginx/nginx.conf
     - source: salt://python/nginx/files/nginx.conf
+    - defaults:
+        sendfile: {{ nginx.sendfile|d('on') }}
     - require:
       - pkg: nginx.core
     - watch_in:
