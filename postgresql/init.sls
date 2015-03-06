@@ -30,13 +30,11 @@ postgresql.service:
       - postgres_user: postgresql.user.{{ user }}
       {% endfor %}
       {% for group in groups.iterkeys() %}
-      - postgres_group: postgresql.group.{{ group }}
+      - cmd: postgresql.group.{{ group }}
       {% endfor %}
       {% for db in databases.iterkeys() %}
-      - postgres_database: postgresql.db.{{ db }}
+      - cmd: postgresql.db.{{ db }}
       {% endfor %}
-
-
 
 {% for group, value in groups.iteritems() %}
 postgresql.group.{{ group }}:
