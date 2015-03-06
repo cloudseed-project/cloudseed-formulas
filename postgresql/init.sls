@@ -27,13 +27,13 @@ postgresql.service:
     - require:
       - pkg: postgresql.core
       {% for user in users.iterkeys() %}
-      - cmd: postgresql.user.{{ user }}
+      - postgres_user: postgresql.user.{{ user }}
       {% endfor %}
       {% for group in groups.iterkeys() %}
-      - cmd: postgresql.group.{{ group }}
+      - postgres_group: postgresql.group.{{ group }}
       {% endfor %}
       {% for db in databases.iterkeys() %}
-      - cmd: postgresql.db.{{ db }}
+      - postgres_database: postgresql.db.{{ db }}
       {% endfor %}
 
 {% for group, value in groups.iteritems() %}
