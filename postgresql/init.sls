@@ -27,7 +27,7 @@ postgresql.service:
     - require:
       - pkg: postgresql.core
       {% for user in users.iterkeys() %}
-      - postgres_user: postgresql.user.{{ user }}
+      - cmd: postgresql.user.{{ user }}
       {% endfor %}
       {% for group in groups.iterkeys() %}
       - cmd: postgresql.group.{{ group }}
