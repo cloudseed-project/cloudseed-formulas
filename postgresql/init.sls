@@ -26,6 +26,16 @@ postgresql.service:
     - enable: True
     - require:
       - pkg: postgresql.core
+      {% for user in users.iterkeys() %}
+      - postgres_user: postgresql.user.{{ user }}
+      {% endfor %}
+      {% for group in groups.iterkeys() %}
+      - postgres_group: postgresql.group.{{ group }}
+      {% endfor %}
+      {% for db in databases.iterkeys() %}
+      - postgres_database: postgresql.db.{{ db }}
+      {% endfor %}
+
 
 
 {% for group, value in groups.iteritems() %}
