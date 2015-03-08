@@ -92,8 +92,8 @@ git.deploy.hook.action.{{ path }}.{{ hook }}:
     - name: {{ path }}/hooks/{{ hook }}.action
     - source: {{ source }}
     - mode: 755
-    {% if data.get('vars') %}
-    {% for key, value in data['vars'] %}
+    {% if value.get('vars') %}
+    {% for k, v in value['vars'] %}
     {{ key }}: {{ value }}
     {% endfor %}
     {% endif %}
