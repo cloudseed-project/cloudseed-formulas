@@ -93,7 +93,7 @@ git.deploy.hook.action.{{ path }}.{{ hook }}:
     - source: {{ source }}
     - mode: 755
     - defaults:
-      {% for k, v in value.get('vars', {}) %}
+      {% for k, v in data[path].get('vars', {}) %}
       {{ k }}: {{ v }}
       {% endfor %}
 
