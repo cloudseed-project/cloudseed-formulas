@@ -96,10 +96,10 @@ git.deploy.hook.action.{{ path }}.{{ hook }}:
     - defaults:
         bar: 1
         baz: 2
-{% for k, v in value.get('vars', {}).iteritems() -%}
+{% for k, v in value.get('vars', {}).iteritems() %}
         {{ k }}: {{ v }}
 {% endfor -%}
-{% endif -%}
+    {% endif -%}
 
     {% if user %}
     - user: {{ user }}
