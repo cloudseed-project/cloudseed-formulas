@@ -8,6 +8,8 @@ git.deploy:
     group: <optional>
     hooks: <required>
         post-receive: salt://your/deploy/action <required>
+    vars: <optional>
+       # optional vars to pass into the hook at render time
 
     # Your hook is treated as a jinja template.
     # the following variables are passed to that
