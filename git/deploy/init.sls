@@ -95,8 +95,8 @@ git.deploy.hook.action.{{ path }}.{{ hook }}:
     {% if 'vars' in value -%}
     - defaults:
       {% for k, v in value.get('vars', {}).iteritems() -%}
-      {{ k }}: {{ v }}
-      {% endfor %}
+            {{ k }}: {{ v }}
+      {% endfor -%}
     {% endif -%}
 
     {% if user %}
