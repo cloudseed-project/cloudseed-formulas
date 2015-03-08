@@ -92,10 +92,12 @@ git.deploy.hook.action.{{ path }}.{{ hook }}:
     - name: {{ path }}/hooks/{{ hook }}.action
     - source: {{ source }}
     - mode: 755
+    {% if 'vars' in value %}
     - defaults:
       {% for k, v in value.get('vars', {}).iteritems() %}
       {{ k }}: {{ v }}
-      {% endfor %}
+      {% endfor -%}
+    {% endif %}
 
     {% if user %}
     - user: {{ user }}
