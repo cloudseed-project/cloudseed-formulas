@@ -94,10 +94,10 @@ git.deploy.hook.action.{{ path }}.{{ hook }}:
     - mode: 755
     {% if 'vars' in value -%}
     - defaults:
-      bar: 1
-      baz: 2
+        bar: 1
+        baz: 2
       {% for k, v in value.get('vars', {}).iteritems() -%}
-            {{ k }}: {{ v }}
+        {{ k }}: {{ v }}
       {% endfor -%}
     {% endif -%}
 
