@@ -16,18 +16,6 @@ php.nginx.fpm.conf:
     - watch_in:
       - service: nginx.service
 
-php.nginx.fpm.upstream.conf:
-  file.managed:
-    - name: /etc/nginx/conf.d/{{ app_name }}.conf
-    - source: salt://php/nginx/files/nginx.upstream.conf
-    - template: jinja
-    - defaults:
-        app_name: {{ app_name }}
-    - watch_in:
-      - service: nginx.service
-    - require:
-      - pkg: nginx.core
-
 php.nginx.fpm.conf:
   file.managed:
     - name: /etc/php5/fpm/php-fpm.conf
@@ -57,6 +45,18 @@ php.nginx.fpm.pool.{{ pool }}:
 
 
 {% for name, value in vhosts.iteritems() %}
+php.nginx.fpm.upstream.{{app_name}}.conf:
+  file.managed:
+    - name: /etc/nginx/conf.d/{{ app_name }}.conf
+    - source: salt://php/nginx/files/nginx.upstream.conf
+    - template: jinja
+    - defaults:
+        app_name: {{ app_name }}
+    - watch_in:
+      - service: nginx.service
+    - require:
+      - pkg: nginx.core
+
 php.nginx.fpm.vhost.{{ name }}:
   file.managed:
     - name: /etc/nginx/sites-available/000-{{ name }}
