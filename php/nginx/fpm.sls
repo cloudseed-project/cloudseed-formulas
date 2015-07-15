@@ -1,9 +1,8 @@
-{% from "apache/map.jinja" import apache with context %}
 {% from "php/map.jinja" import php with context %}
 
 include:
   - php
-  - apache
+  - nginx
   {% if grains['os_family'] == 'Debian' %}
   - php.nginx.debian.fpm
   {% endif %}
