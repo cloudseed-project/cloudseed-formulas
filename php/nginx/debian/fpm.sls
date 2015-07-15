@@ -3,7 +3,7 @@
 {% set vhosts = fpm.get('vhosts', {}) %}
 {% set nginx = fpm.get('nginx', {}) %}
 
-php.nginx.fpm.conf:
+php.nginx.conf:
   file.managed:
     - name: /etc/nginx/nginx.conf
     - source: salt://nginx/files/nginx.conf
