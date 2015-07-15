@@ -45,6 +45,9 @@ php.nginx.fpm.pool.{{ pool }}:
 
 
 {% for name, value in vhosts.iteritems() %}
+{% set aliases = value.server_alias|d([]) %}
+{% set app_name = value.app_name|d(name.split('.')[0]) %}
+
 php.nginx.fpm.upstream.{{app_name}}.conf:
   file.managed:
     - name: /etc/nginx/conf.d/{{ app_name }}.conf
