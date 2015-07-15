@@ -5,7 +5,7 @@
 php.apache.fpm.conf:
   file.managed:
     - name: /etc/php5/fpm/php-fpm.conf
-    - source: {{ fpm.get('conf', 'salt://php/apache/files/fpm.conf') }}
+    - source: {{ fpm.get('conf', 'salt://fpm/files/fpm.conf') }}
     - require:
       - pkg: php.apache.fpm.core
     - watch_in:
@@ -15,7 +15,7 @@ php.apache.fpm.conf:
 php.apache.fpm.pool.{{ pool }}:
   file.managed:
     - name: /etc/php5/fpm/pool.d/{{ pool }}.conf
-    - source: {{ value.conf|d('salt://php/apache/files/fpm.pool.conf') }}
+    - source: {{ value.conf|d('salt://fpm/files/fpm.pool.conf') }}
     - template: jinja
     - defaults:
         name: {{ pool }}

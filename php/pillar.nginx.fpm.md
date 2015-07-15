@@ -1,8 +1,23 @@
 ```yaml
-python.nginx.gunicorn:
+php.nginx.fpm:
+    pools:
+      www:
+        conf: <optional> # Defaults to salt://php/apache/files/fpm.pool.conf
+        listen_address: <optional>  # Defaults to 127.0.0.1:9000 can also be path to socket fd, /tmp/foo.sock
+        user: <optional> # Defaults to www-data
+        group: <optional> # Defaults to www-data
+        ini:
+          <key>:<value>  # PHP ini overrides for this pool.
+                         # The bottom of file php/apache/files/fpm.pool.conf
+                         # for examples
+                         # eg:
+                         # php_flag[display_errors]: on
+                         # php_admin_value[memory_limit]: 32M
+
     vhosts:
       foo.com:                       # Server name (aka name_key)
                                      #
+        pool: <required>             # Must match a pool name defined above, aka 'www'
         server_alias: <optional>     # YAML Array of alias names, aka:
         app_name:     <optional>     # Defaults to name_key(aka foo.com).split('.')[0]
                                      #
@@ -17,8 +32,6 @@ python.nginx.gunicorn:
         access_log: <optional>       # Defaults to /var/log/nginx/foo.com.log
                                      #
         location: <optional>         # Defaults to /
-                                     #
-        proxy_pass: <optional>       # Defaults to http://127.0.0.1:8000
                                      #
         conf: <optional>             # Defaults to salt://python/nginx/files/gunicorn.vhost.conf
                                      #
