@@ -1,5 +1,5 @@
 {% from "nginx/map.jinja" import nginx with context %}
-
+{% set nginx = salt['pillar.get']('nginx', {}) %}
 
 nginx.core:
   pkg:
@@ -20,7 +20,11 @@ nginx.service:
 nginx.conf:
   file.managed:
     - name: {{ nginx.config }}
-    - source: "{{ pillar.get('nginx')['conf']|d('salt://nginx/files/nginx.conf') }}"
+    - source: "{{ nginx.conf|d('salt://nginx/files/nginx.conf') }}"
+    - template: jinja
+    - defaults:
+        sendfile: {{ nginx.sendfile|d('"on"') }}
+        worker_processes: {{ nginx.worker_processes|d('"1"') }}
     - user: root
     - group: root
     - mode: 644

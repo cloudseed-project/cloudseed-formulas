@@ -6,7 +6,7 @@
 {% set aliases = value.server_alias|d([]) %}
 {% set app_name = value.app_name|d(name.split('.')[0]) %}
 
-python.nginx.gunicorn.upstream.conf:
+python.nginx.gunicorn.upstream.{{ app_name }}.conf:
   file.managed:
     - name: /etc/nginx/conf.d/{{ app_name }}.conf
     - source: salt://python/nginx/files/nginx.upstream.conf
