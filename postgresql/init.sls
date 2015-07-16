@@ -26,15 +26,15 @@ postgresql.service:
     - enable: True
     - require:
       - pkg: postgresql.core
-      {% for user in users.iterkeys() %}
-      - postgres_user: postgresql.user.{{ user }}
-      {% endfor %}
-      {% for group in groups.iterkeys() %}
-      - postgres_group: postgresql.group.{{ group }}
-      {% endfor %}
-      {% for db in databases.iterkeys() %}
-      - postgres_database: postgresql.db.{{ db }}
-      {% endfor %}
+      #{% for user in users.iterkeys() %}
+      #- postgres_user: postgresql.user.{{ user }}
+      #{% endfor %}
+      #{% for group in groups.iterkeys() %}
+      #- postgres_group: postgresql.group.{{ group }}
+      #{% endfor %}
+      #{% for db in databases.iterkeys() %}
+      #- postgres_database: postgresql.db.{{ db }}
+      #{% endfor %}
 
 {% for group, value in groups.iteritems() %}
 postgresql.group.{{ group }}:
@@ -47,6 +47,7 @@ postgresql.group.{{ group }}:
     - user: postgres
     - require:
       - pkg: postgresql.core
+      - service: postgresql.service
 {% endfor %}
 
 {% for user, value in users.iteritems() %}
@@ -62,6 +63,7 @@ postgresql.user.{{ user }}:
     - user: postgres
     - require:
       - pkg: postgresql.core
+      - service: postgresql.service
       {% if value.groups|d(False) %}
       {% for each in value.groups.split(',') %}
       - postgres_group: postgresql.group.{{ each|trim }}
@@ -81,5 +83,6 @@ postgresql.db.{{ db }}:
     - user: postgres
     - require:
       - pkg: postgresql.core
+      - service: postgresql.service
       - postgres_user: postgresql.user.{{ value.owner }}
 {% endfor %}
