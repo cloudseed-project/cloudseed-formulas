@@ -66,7 +66,7 @@ postgresql.user.create.{{ user }}:
       - service: postgresql.service
       {% if value.groups|d(False) %}
       {% for each in value.groups.split(',') %}
-      - postgres_group: postgresql.group.{{ each|trim }}
+      - postgres_group: postgresql.group.create.{{ each|trim }}
       {% endfor %}
       {% endif %}
 {% endfor %}
@@ -84,5 +84,5 @@ postgresql.db.create.{{ db }}:
     - require:
       - pkg: postgresql.core
       - service: postgresql.service
-      - postgres_user: postgresql.user.{{ value.owner }}
+      - postgres_user: postgresql.user.create.{{ value.owner }}
 {% endfor %}
