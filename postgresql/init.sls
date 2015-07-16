@@ -37,7 +37,7 @@ postgresql.service:
       #{% endfor %}
 
 {% for group, value in groups.iteritems() %}
-postgresql.group.{{ group }}:
+postgresql.group.create.{{ group }}:
   postgres_group.present:
     - name: {{ group }}
     - createdb: {{ value.createdb | d('false') }}
@@ -51,7 +51,7 @@ postgresql.group.{{ group }}:
 {% endfor %}
 
 {% for user, value in users.iteritems() %}
-postgresql.user.{{ user }}:
+postgresql.user.create.{{ user }}:
   postgres_user.present:
     - name: {{ user }}
     - createdb: {{ value.createdb | d('false') }}
@@ -72,7 +72,7 @@ postgresql.user.{{ user }}:
 {% endfor %}
 
 {% for db, value in databases.iteritems() %}
-postgresql.db.{{ db }}:
+postgresql.db.create.{{ db }}:
   postgres_database.present:
     - name: {{ db }}
     - encoding: {{ value.encoding | d('UTF8') }}
