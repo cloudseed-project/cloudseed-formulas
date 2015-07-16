@@ -104,11 +104,11 @@ mysql.grant.{{ each.user }}.{{ each.host }}.{{ loop.index }}:
     - grant_option: false
     - escape: true
     - revoke_first: false
-    - mysql.host: 'localhost'
-    - mysql.port: {{ port }}
-    - mysql.user: {{ username }}
-    - mysql.pass: {{ root_password }}
-    - mysql.db: 'mysql'
+    - connection_host: 'localhost'
+    - connection_port: {{ port }}
+    - connection_user: {{ username }}
+    - connection_pass: {{ root_password }}
+    - connection_db: 'mysql'
     - require:
       - pkg: mysql.core
       - pkg: mysql.salt.support
