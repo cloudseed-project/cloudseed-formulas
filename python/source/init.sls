@@ -3,6 +3,7 @@
 include:
   - wget
   - build-tools
+  - openssl
 
 python.source.install:
   cmd.run:
@@ -11,6 +12,7 @@ python.source.install:
     - require:
       - pkg: wget.core
       - pkg: build-tools.core
+      - pkg: openssl.dev
 
 python.source.cleanup:
   cmd.wait:
