@@ -4,7 +4,7 @@ include:
   - wget
   - build-tools
 
-python.source.install:
+python.core:
   cmd.run:
     - name: cd /tmp && wget https://www.python.org/ftp/python/{{ version }}/Python-{{ version }}.tgz && tar -xzf Python-{{ version }}.tgz && cd Python-{{ version }} && ./configure && make && make install
     - unless: python=$(which python) && ret=$($python -c "import platform;print(platform.python_version())") && test {{version}} = $ret
@@ -16,4 +16,4 @@ python.source.cleanup:
   cmd.wait:
     - name: cd /tmp && rm -rf Python-{{ version }} && rm -f  Python-{{ version }}.tgz
     - watch:
-      - cmd: python.source.install
+      - cmd: python.core
