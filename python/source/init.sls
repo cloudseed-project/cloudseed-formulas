@@ -3,7 +3,8 @@
 include:
   - wget
   - build-tools
-  - openssl
+  - openssl # need libssl-dev for --with-ensurepip=install
+            # in python.source.install
 
 python.source.install:
   cmd.run:
