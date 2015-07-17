@@ -2,6 +2,7 @@
 
 include:
   - wget
+  - build-tools
 
 python.source.install:
   cmd.run:
@@ -9,3 +10,4 @@ python.source.install:
     - unless: python=$(which python) && ret=$($python -c "import platform;print(platform.python_version())") && test {{version}} = $ret
     - require:
       - pkg: wget.core
+      - pkg: build-tools.core
