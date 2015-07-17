@@ -11,3 +11,7 @@ python.source.install:
       ./configure && make && make install
     - require:
       - pkg: wget.core
+    - unless: |
+      python=$(which python) &&\
+      ret=$($python -c "import platform;print(platform.python_version())") &&\
+      test {{version}} = $ret
