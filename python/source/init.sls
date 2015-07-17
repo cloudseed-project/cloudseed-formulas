@@ -1,3 +1,4 @@
+{% from "python/map.jinja" import python with context %}
 {% set version = salt["pillar.get"]("python:version") %}
 
 include:
@@ -5,6 +6,15 @@ include:
   - build-tools
   - openssl # need libssl-dev for --with-ensurepip=install
             # in python.source.install
+
+# https://github.com/saltstack/salt/issues/7659#issuecomment-71106735
+# in order for salt's pip states to run we need a system wide pip
+# install
+
+python.source.system.pip:
+  pkg:
+    - installed
+    - name: {{ python.pip }}
 
 python.source.install:
   cmd.run:
@@ -14,6 +24,7 @@ python.source.install:
       - pkg: wget.core
       - pkg: build-tools.core
       - pkg: openssl.dev
+      - pkg: python.source.system.pip
 
 python.source.cleanup:
   cmd.wait:
