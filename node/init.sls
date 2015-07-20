@@ -7,8 +7,8 @@ include:
 
 node.core:
   cmd.run:
-    - name: curl -L https://raw.github.com/isaacs/nave/master/nave.sh | sudo bash -s -- usemain 0.10.20
-    - unless: test "v0.10.20" = "$(node -v)"
+    - name: curl -L https://raw.github.com/isaacs/nave/master/nave.sh | sudo bash -s -- usemain 0.12.7
+    - unless: test "v0.12.7" = "$(node -v)"
     - env:
         PREFIX: /usr/local/lib/node
         NAVE_JOBS: '1'
